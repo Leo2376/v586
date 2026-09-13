@@ -1,0 +1,26 @@
+// boot.hex - minimal boot image preloaded at the v586 reset vector
+// (0x40d00000, mapped to offset 0 in axi_mem128).
+//
+// This is a $readmemh file: one byte per line, hex, MSB-first ordering is
+// handled by the tool (mem[0] = first line). The single instruction is
+//   jmp $        ; EB FE   (jump to self -> infinite loop)
+// padded with NOPs (90) so a 128-bit fetch beat is fully defined. Loading
+// this proves the full fetch path (useq -> biu -> axi_mem128) works: the
+// core fetches EB FE and stays at the reset vector instead of falling
+// through zero-filled memory.
+EB
+FE
+90
+90
+90
+90
+90
+90
+90
+90
+90
+90
+90
+90
+90
+90

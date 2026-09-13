@@ -37,6 +37,7 @@ reg [31:0] addr_out_ff;
 reg even;
 reg [31:0] read_data_sav;
 reg [31:0] read_data_out_ff,write_data_out_ff;
+reg [15:0] write_msk_ff;
 reg compl;
 
 wire [15:0] msk8 = (addr_in[3:0] == 4'b0000) ? 16'b0000_0000_0000_0001 : 
@@ -207,7 +208,12 @@ else if (read_ack_ff == 1'b1)
     begin
      read_ack_ff <= 1'b1;
      read_req_ff <= 1'b0;
-     read_data_out_ff <= read_data_in; 
+     case (addr_in[3:2])
+      2'b00: read_data_out_ff <= read_data_in[31:  0];
+      2'b01: read_data_out_ff <= read_data_in[63: 32];
+      2'b10: read_data_out_ff <= read_data_in[95: 64];
+      2'b11: read_data_out_ff <= read_data_in[127:96];
+     endcase
     end
  else 
  if ((write_req_ff == 1'b0) && (write_req_in == 1'b1) && (even == 1'b0)) 
@@ -225,7 +231,7 @@ else if (read_ack_ff == 1'b1)
         addr_out_ff  <= {addr_in[31:4],4'b0000} + 5'b10000;
         even         <= 1'b0;
 	write_data_out_ff <= write_data_mux_rest;
-	write_msk_ff <= {24'b0,~write_msk_ff[15:12]}
+	write_msk_ff <= {24'b0,~write_msk_ff[15:12]};
        end 
     else
     if ((split == 1'b1) && (write_req_ff == 1'b1) && (write_ack_in == 1'b1) && (even == 1'b0))

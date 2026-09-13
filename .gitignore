@@ -1,0 +1,15 @@
+# Verilator / build artifacts
+build/
+waves/
+*.vvp
+*.vcd
+*.fst
+__pycache__/
+
+# Python tooling wheels (dev only)
+*.whl
+
+# Editor / OS
+*.swp
+*~
+.DS_Store

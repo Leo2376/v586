@@ -21,10 +21,10 @@ D_axi_AR, D_axi_ARVALID, D_axi_ARREADY,  D_axi_ARBURST, D_axi_ARLEN, D_axi_ARSIZ
 D_axi_R,  D_axi_RVALID,  D_axi_RREADY,   D_axi_RLAST,
 
 // AXI4 PERIPH IOBUS 32 BIT BUS ( IN FACT ONLY 8 LSB USED)
-I_axi_io_AW, I_axi_io_AWVALID, I_axi_io_AWREADY, I_axi_io_AWBURST, I_axi_io_AWLEN , I_axi_io_AWSIZE,
-I_axi_io_W,  I_axi_io_WVALID,  I_axi_io_WREADY,  I_axi_io_WSTRB,   I_axi_io_WLAST,
-I_axi_io_AR, I_axi_io_ARVALID, I_axi_io_ARREADY, I_axi_io_ARBURST, I_axi_io_ARLEN,  I_axi_io_ARSIZE,
-I_axi_io_R,  I_axi_io_RVALID,  I_axi_io_RREADY,  I_axi_io_RLAST,
+axi_io_AW, axi_io_AWVALID, axi_io_AWREADY, axi_io_AWBURST, axi_io_AWLEN , axi_io_AWSIZE,
+axi_io_W,  axi_io_WVALID,  axi_io_WREADY,  axi_io_WSTRB,   axi_io_WLAST,
+axi_io_AR, axi_io_ARVALID, axi_io_ARREADY, axi_io_ARBURST, axi_io_ARLEN,  axi_io_ARSIZE,
+axi_io_R,  axi_io_RVALID,  axi_io_RREADY,  axi_io_RLAST,
 
 busy, outstanding
 );
@@ -48,26 +48,26 @@ input       [15:0] write_msk;
 input              outstanding;
 
 // axi instruction bus
-output reg  [31:0] I_axi_AW, I_axi_AR;
-output reg 	   I_axi_AWVALID,I_axi_ARVALID,I_axi_WVALID,I_axi_RREADY,I_axi_WLAST;
-input      	   I_axi_AWREADY,I_axi_ARREADY,I_axi_WREADY,I_axi_RVALID,I_axi_RLAST;
-input      [127:0] I_axi_R;
-output reg [127:0] I_axi_W;
-output reg  [15:0] I_axi_WSTRB;
-output reg   [1:0] I_axi_ARBURST,I_axi_AWBURST;
-output reg   [7:0] I_axi_ARLEN, I_axi_AWLEN;
-output reg   [2:0] I_axi_ARSIZE, I_axi_AWSIZE;
+output reg  [31:0] axi_AW, axi_AR;
+output reg 	   axi_AWVALID,axi_ARVALID,axi_WVALID,axi_RREADY,axi_WLAST;
+input      	   axi_AWREADY,axi_ARREADY,axi_WREADY,axi_RVALID,axi_RLAST;
+input      [127:0] axi_R;
+output reg [127:0] axi_W;
+output reg  [15:0] axi_WSTRB;
+output reg   [1:0] axi_ARBURST,axi_AWBURST;
+output reg   [7:0] axi_ARLEN, axi_AWLEN;
+output reg   [2:0] axi_ARSIZE, axi_AWSIZE;
 
 // axi data bus
-output reg  [31:0] D_axD_AW, D_axD_AR;
-output reg 	   D_axD_AWVALID,D_axD_ARVALID,D_axD_WVALID,D_axD_RREADY,D_axD_WLAST;
-input      	   D_axD_AWREADY,D_axD_ARREADY,D_axD_WREADY,D_axD_RVALID,D_axD_RLAST;
-input      [127:0] D_axD_R;
-output reg [127:0] D_axD_W;
-output reg  [15:0] D_axD_WSTRB;
-output reg   [1:0] D_axD_ARBURST,D_axD_AWBURST;
-output reg   [7:0] D_axD_ARLEN, D_axD_AWLEN;
-output reg   [2:0] D_axD_ARSIZE, D_axD_AWSIZE;
+output reg  [31:0] D_axi_AW, D_axi_AR;
+output reg 	   D_axi_AWVALID,D_axi_ARVALID,D_axi_WVALID,D_axi_RREADY,D_axi_WLAST;
+input      	   D_axi_AWREADY,D_axi_ARREADY,D_axi_WREADY,D_axi_RVALID,D_axi_RLAST;
+input      [127:0] D_axi_R;
+output reg [127:0] D_axi_W;
+output reg  [15:0] D_axi_WSTRB;
+output reg   [1:0] D_axi_ARBURST,D_axi_AWBURST;
+output reg   [7:0] D_axi_ARLEN, D_axi_AWLEN;
+output reg   [2:0] D_axi_ARSIZE, D_axi_AWSIZE;
 
 // axi_io bus
 output reg [31:0] axi_io_AW, axi_io_AR;
@@ -106,7 +106,7 @@ assign read_ack = read_ack_slow;
 
 assign write_ack = wrint_ack ;
 assign busy = (fsm !=0 ) ? 1 : 0;
-assign read_data = (fsm == 5'b11110) ? axi_R : cacheQ[127: 0] :
+assign read_data = (fsm == 5'b11110) ? axi_R : cacheQ[127: 0] ;
 
 assign cacheA = (fsm == 5'b00001) ? axi_AW[13:4] : Daddr[13:4];
 
@@ -245,7 +245,7 @@ casex ({fsm,(write_req&~wrint_ack),(read_req&~read_ack_slow),(code_req&~code_ack
 		    A4            <= Daddr[3:2];
 		    fsm 	      <= 5'b01011; 
 		    axi_RREADY    <= 0;
-		    axi_ARLEN     <= 8'h3;
+		    axi_ARLEN     <= 8'h0;
 		    burst_idx     <= 0;
                 end
 
@@ -320,12 +320,13 @@ casex ({fsm,(write_req&~wrint_ack),(read_req&~read_ack_slow),(code_req&~code_ack
 		 read_ack_slow <= 0; 
 		 code_ack_slow <= 0; 
 		 code_wack     <= 0;
-         axi_AR        <= {code_addr[31:2],2'b0}; 
+         axi_AR        <= {code_addr[31:4],4'b0}; 
          axi_ARVALID   <= 1; 
          axi_RREADY    <= 1; 
          burst_idx     <= 0;
 		 abort         <= 0;
-		 axi_ARLEN <= 8'h3;    
+		 axi_ARLEN <= 8'h0;    // single 128-bit beat = 16-byte line
+		 axi_ARSIZE <= 3'h4;   // 2^4 = 16 bytes per beat
 		 fsm       <= 5'b10001;
 		end
 	
@@ -334,6 +335,7 @@ casex ({fsm,(write_req&~wrint_ack),(read_req&~read_ack_slow),(code_req&~code_ack
                  if (axi_ARREADY == 1) axi_ARVALID <= 0;
                  if((axi_RVALID == 1) && (axi_RLAST == 1'b1))
 	          begin 
+		    code_data    <= axi_R; // capture fetched 128-bit line
 		    fsm        <= 5'b11111; 
 		    axi_RREADY <= 0;
 		    code_ack_slow <= 1;
