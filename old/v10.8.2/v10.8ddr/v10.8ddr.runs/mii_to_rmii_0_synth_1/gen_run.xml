@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="mii_to_rmii_0_synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1464725270">
+  <File Type="RDS-PROPCONSTRS" Name="mii_to_rmii_0_drc_synth.rpt"/>
+  <File Type="RUN-CONSTRS" Name="$PDATADIR/runs/mii_to_rmii_0_synth_1/constrs_in.xml"/>
+  <File Type="RDS-DCP" Name="mii_to_rmii_0.dcp"/>
+  <File Type="RUN-STRAT" Name="$PDATADIR/runs/mii_to_rmii_0_synth_1/mii_to_rmii_0_synth_1.psg"/>
+  <File Type="VDS-TIMING-PB" Name="mii_to_rmii_0_timing_summary_synth.pb"/>
+  <File Type="RDS-UTIL" Name="mii_to_rmii_0_utilization_synth.rpt"/>
+  <File Type="PA-TCL" Name="mii_to_rmii_0.tcl"/>
+  <File Type="RDS-UTIL-PB" Name="mii_to_rmii_0_utilization_synth.pb"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="mii_to_rmii_0_timing_summary_synth.rpt"/>
+  <File Type="RDS-RDS" Name="mii_to_rmii_0.vds"/>
+  <File Type="RUN-SRCS" Name="$PDATADIR/runs/mii_to_rmii_0_synth_1/sources.xml"/>
+  <FileSet Name="sources" Type="BlockSrcs" RelSrcDir="$PSRCDIR/mii_to_rmii_0">
+    <File Path="$PPRDIR/../../../svn4/trunk/xci/mii_to_rmii/mii_to_rmii_0.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TopModule" Val="mii_to_rmii_0"/>
+      <Option Name="UseBlackboxStub" Val="1"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="BlockSrcs" RelSrcDir="$PSRCDIR/mii_to_rmii_0">
+    <File Path="$PPRDIR/../../../svn4/trunk/xci/mii_to_rmii/mii_to_rmii_0.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TopModule" Val="mii_to_rmii_0"/>
+      <Option Name="UseBlackboxStub" Val="1"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="strat1" Flow="Vivado Synthesis 2015"/>
+    <Step Id="synth_design">
+      <Option Id="ResourceSharing">1</Option>
+      <Option Id="ControlSetOptThreshold">1</Option>
+      <Option Id="Directive">1</Option>
+    </Step>
+  </Strategy>
+</GenRun>

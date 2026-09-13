@@ -1,0 +1,438 @@
+/*
+
+Vivado v2016.1 (64-bit)
+SW Build 1538259 on Fri Apr  8 15:45:23 MDT 2016
+Process ID: 17633
+
+Current time: 	8/29/16 9:14:46 AM CEST
+Time zone: 	Central European Time (Europe/Paris)
+
+OS: NAME="Ubuntu"
+Version: 3.13.0-86-generic
+Architecture: amd64
+Available processors (cores): 4
+
+DISPLAY: :0
+Screen size: 1600x900
+Screen resolution (DPI): 96
+Available screens: 1
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+
+Java version: 	1.8.0_66 64-bit
+Java home: 	/opt/Xilinx/Vivado/2016.1/tps/lnx64/jre
+
+User name: 	leo
+User home directory: /home/leo
+User working directory: /home/leo/cpu/vault.memo/v10.8.2
+User country: 	US
+User language: 	en
+User locale: 	en_US
+
+RDI Base root directory: /opt/Xilinx/Vivado
+RDI Data directory: /opt/Xilinx/Vivado/2016.1/data
+RDI Bin directory: /opt/Xilinx/Vivado/2016.1/bin
+
+Vivado preferences path: /home/leo/.Xilinx/Vivado/2016.1/vivado.ini
+Vivado layouts directory: /home/leo/.Xilinx/Vivado/2016.1/layouts
+
+GUI allocated memory:	164 MB
+GUI max memory:		3,052 MB
+Engine allocated memory: 4,835 MB
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+// [GUI Memory]: 31 MB (+29613kb) [00:00:06]
+// [Engine Memory]: 4,835 MB (+4918430kb) [00:00:06]
+// HMemoryUtils.trashcanNow. Engine heap size: 4,840 MB. GUI used memory: 22 MB. Current time: 8/29/16 9:14:49 AM CEST
+selectButton(PAResourceEtoH.GettingStartedView_CREATE_NEW_PROJECT, "Create New Project"); // l:JideButton (JPanel:JComponent, cv:JFrame)
+// Run Command: PAResourceCommand.PACommandNames_NEW_PROJECT
+// [GUI Memory]: 36 MB (+3740kb) [00:00:16]
+// [GUI Memory]: 48 MB (+10539kb) [00:00:16]
+// h:g (cv:JFrame): New Project: addNotify
+selectButton("NEXT", "Next >"); // JButton:AbstractButton (ButtonPanel:JPanel, h:g)
+selectButton(PAResourceOtoP.ProjectNameChooser_CHOOSE_PROJECT_LOCATION, (String) null); // r:a (ap:JPanel, h:g)
+setFolderChooser("/home/leo/Desktop/XILINX MCSs");
+setText(PAResourceOtoP.ProjectNameChooser_PROJECT_NAME, "v10.8.2ddr"); // ao:JTextField (JPanel:JComponent, h:g)
+selectButton("NEXT", "Next >"); // JButton:AbstractButton (ButtonPanel:JPanel, h:g)
+selectButton("NEXT", "Next >"); // JButton:AbstractButton (ButtonPanel:JPanel, h:g)
+selectButton(PAResourceQtoS.SrcChooserPanel_ADD_HDL_AND_NETLIST_FILES_TO_YOUR_PROJECT, "Add Files"); // a:JButton (F:JPanel, h:g)
+// [GUI Memory]: 51 MB (+708kb) [00:00:53]
+// [GUI Memory]: 56 MB (+2959kb) [00:00:58]
+// Elapsed time: 65 seconds
+String[] filenames31467 = {"/home/leo/cpu/vault.memo/v10.8.2/Dtlb.v", "/home/leo/cpu/vault.memo/v10.8.2/Itlb.v", "/home/leo/cpu/vault.memo/v10.8.2/TOP_SYS.v", "/home/leo/cpu/vault.memo/v10.8.2/acu.v", "/home/leo/cpu/vault.memo/v10.8.2/arithbox.v", "/home/leo/cpu/vault.memo/v10.8.2/axi_rom.v", "/home/leo/cpu/vault.memo/v10.8.2/biu32_axi.v", "/home/leo/cpu/vault.memo/v10.8.2/cacheram.v", "/home/leo/cpu/vault.memo/v10.8.2/clk_wiz_0.v", "/home/leo/cpu/vault.memo/v10.8.2/cmp14.v", "/home/leo/cpu/vault.memo/v10.8.2/core.v", "/home/leo/cpu/vault.memo/v10.8.2/cpu.v", "/home/leo/cpu/vault.memo/v10.8.2/datacache.v", "/home/leo/cpu/vault.memo/v10.8.2/deco.v", "/home/leo/cpu/vault.memo/v10.8.2/deco8.v", "/home/leo/cpu/vault.memo/v10.8.2/deco_rm.v", "/home/leo/cpu/vault.memo/v10.8.2/periph.v", "/home/leo/cpu/vault.memo/v10.8.2/rstgen.v", "/home/leo/cpu/vault.memo/v10.8.2/shiftbox.v", "/home/leo/cpu/vault.memo/v10.8.2/synthetic_op.v", "/home/leo/cpu/vault.memo/v10.8.2/uart_16750.v", "/home/leo/cpu/vault.memo/v10.8.2/udecox.v", "/home/leo/cpu/vault.memo/v10.8.2/useq_cache_8k_ddr.v", "/home/leo/cpu/vault.memo/v10.8.2/v586.v", "/home/leo/cpu/vault.memo/v10.8.2/v8042_stub.v", "/home/leo/cpu/vault.memo/v10.8.2/v8253.v", "/home/leo/cpu/vault.memo/v10.8.2/v8253_counter.v", "/home/leo/cpu/vault.memo/v10.8.2/v8259.v", "/home/leo/cpu/vault.memo/v10.8.2/vliw.v"};
+setFileChooser(filenames31467);
+// HMemoryUtils.trashcanNow. Engine heap size: 4,893 MB. GUI used memory: 25 MB. Current time: 8/29/16 9:16:29 AM CEST
+selectButton(PAResourceQtoS.SrcChooserPanel_ADD_HDL_AND_NETLIST_FILES_TO_YOUR_PROJECT, "Add Files"); // a:JButton (F:JPanel, h:g)
+String[] filenames16706 = {"/home/leo/cpu/vault.memo/v10.8.2/notech/notech_and2.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_and3.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_and4.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_ao3.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_ao4.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_fa2.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_ha2.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_inv.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_mux2.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_mux4.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_nand2.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_nand3.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_nao3.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_nao4.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_nor2.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_nor4.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_or2.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_or4.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_reg.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_reg_set.v", "/home/leo/cpu/vault.memo/v10.8.2/notech/notech_xor2.v"};
+setFileChooser(filenames16706);
+selectButton("NEXT", "Next >"); // JButton:AbstractButton (ButtonPanel:JPanel, h:g)
+selectButton(PAResourceQtoS.SrcChooserPanel_ADD_CONFIGURABLE_IP_FILES, "Add Files"); // a:JButton (F:JPanel, h:g)
+dismissFileChooser();
+selectButton(PAResourceQtoS.SrcChooserPanel_ADD_SOURCE_FILES, "Add"); // y:JideButton (CommandBar:DockableBar, h:g)
+selectMenuItem(PAResourceQtoS.SrcChooserPanel_ADD_CONFIGURABLE_IP_FILES, "Add Files..."); // af:JMenuItem (am:JPopupMenu, h:g)
+// Elapsed time: 48 seconds
+setFileChooser("/home/leo/test_v586/v586/trunk/xci/crossbar_128m/axi_crossbar_0.xci");
+selectButton(PAResourceQtoS.SrcChooserPanel_ADD_CONFIGURABLE_IP_FILES, "Add Files"); // a:JButton (F:JPanel, h:g)
+setFileChooser("/home/leo/test_v586/v586/trunk/xci/etherlite/axi_ethernetlite_0.xci");
+selectButton("NEXT", "Next >"); // JButton:AbstractButton (ButtonPanel:JPanel, h:g)
+selectButton(PAResourceAtoD.ConstraintsChooserPanel_ADD_EXISTING_OR_CREATE_NEW_CONSTRAINTS, "Add"); // y:JideButton (CommandBar:DockableBar, h:g)
+selectMenuItem(PAResourceAtoD.ConstraintsChooserPanel_ADD_FILES, "Add Files..."); // af:JMenuItem (am:JPopupMenu, h:g)
+setFileChooser("/home/leo/test_v586/v586/trunk/xdc/TOP_SYS.xdc");
+selectButton("NEXT", "Next >"); // JButton:AbstractButton (ButtonPanel:JPanel, h:g)
+// HMemoryUtils.trashcanNow. Engine heap size: 4,923 MB. GUI used memory: 25 MB. Current time: 8/29/16 9:17:59 AM CEST
+selectButton(PAResourceOtoP.PartChooser_BOARDS, "Boards"); // m:s (JPanel:JComponent, h:g): TRUE
+selectComboBox(PAResourceOtoP.PartChooser_BOARD_VENDOR_CHOOSER, "digilentinc.com", 1); // I:N (JPanel:JComponent, h:g)
+selectComboBox(PAResourceOtoP.PartChooser_BOARD_DISPLAY_NAME_CHOOSER, "Nexys4 DDR", 3); // r:N (JPanel:JComponent, h:g)
+selectTable(PAResourceOtoP.PartChooser_BOARDS, "Nexys4 DDR ; digilentinc.com ; C.1 ; xc7a100tcsg324-1 ; 324 ; 1.1 ; 135 ; 240 ; 126800 ; 0 ; 0 ; 210 ; 63400 ; 6 ; 1 ; 85 ; 0 ; 85 ; C ; 1.05 ; 0.95 ; 0.95", 0, "Nexys4 DDR", 0); // P:v (JViewport:JComponent, h:g)
+selectButton("NEXT", "Next >"); // JButton:AbstractButton (ButtonPanel:JPanel, h:g)
+// bL:g (h:g):  Create Project : addNotify
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_ADD
+// TclEventType: RUN_CURRENT
+// TclEventType: PROJECT_NEW
+// Tcl Message: create_project v10.8.2ddr {/home/leo/Desktop/XILINX MCSs/v10.8.2ddr} -part xc7a100tcsg324-1 
+// TclEventType: PROJECT_NEW
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2016.1/data/ip'. 
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// [GUI Memory]: 60 MB (+754kb) [00:03:30]
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// TclEventType: BOARD_MODIFIED
+// Tcl Message: set_property board_part digilentinc.com:nexys4_ddr:part0:1.1 [current_project] 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: add_files -norecurse /home/leo/test_v586/v586/trunk/xci/crossbar_128m/axi_crossbar_0.xci 
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: export_ip_user_files -of_objects  [get_files  /home/leo/test_v586/v586/trunk/xci/crossbar_128m/axi_crossbar_0.xci] -force -quiet 
+// TclEventType: PROJECT_CHANGE
+// Tcl Message: add_files -norecurse /home/leo/test_v586/v586/trunk/xci/etherlite/axi_ethernetlite_0.xci 
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// Tcl Message: export_ip_user_files -of_objects  [get_files  /home/leo/test_v586/v586/trunk/xci/etherlite/axi_ethernetlite_0.xci] -force -quiet 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: add_files -fileset constrs_1 -norecurse /home/leo/test_v586/v586/trunk/xdc/TOP_SYS.xdc 
+selectButton("FINISH", "Finish"); // JButton:AbstractButton (ButtonPanel:JPanel, h:g)
+// 'g' command handler elapsed time: 199 seconds
+dismissDialog("Create Project"); // bL:g (h:g)
+dismissDialog("New Project"); // h:g (cv:JFrame)
+// TclEventType: DG_UPDATE_GRAPH
+// [GUI Memory]: 67 MB (+4284kb) [00:03:35]
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// Tcl Message: update_compile_order -fileset sources_1 
+// Tcl Message: update_compile_order -fileset sim_1 
+// TclEventType: DG_UPDATE_GRAPH
+// HMemoryUtils.trashcanNow. Engine heap size: 4,950 MB. GUI used memory: 34 MB. Current time: 8/29/16 9:18:19 AM CEST
+// TclEventType: FILE_SET_CHANGE
+// [GUI Memory]: 70 MB (+173kb) [00:03:58]
+// Elapsed time: 24 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, TOP_SYS (TOP_SYS.v)]", 1); // z:k (G:JPanel, cv:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, TOP_SYS (TOP_SYS.v), i_ddr_axi - ddr_axi]", 5, false); // z:k (G:JPanel, cv:JFrame)
+// PAPropertyPanels.initPanels (axi_ethernetlite_0.xci) elapsed time: 0.2s
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, TOP_SYS (TOP_SYS.v), i_etherlite - axi_ethernetlite_0 (axi_ethernetlite_0.xci)]", 7, false); // z:k (G:JPanel, cv:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, TOP_SYS (TOP_SYS.v), i_etherlite - axi_ethernetlite_0 (axi_ethernetlite_0.xci)]", 7, false, false, false, false, true, false); // z:k (G:JPanel, cv:JFrame) - Popup Trigger
+selectMenuItem(PAResourceCommand.PACommandNames_UPGRADE_IP, "Upgrade IP..."); // af:JMenuItem (am:JPopupMenu, Popup:JWindow)
+// Run Command: PAResourceCommand.PACommandNames_UPGRADE_IP
+// ah:G (cv:JFrame): Enable Core Container: addNotify
+selectRadioButton(PAResourceTtoZ.UpgradeIP_CONVERT_IP_TO_CORE_CONTAINER_AND_SET, "Convert IP to Core Container and Set as Default in Project"); // a:JRadioButton (JPanel:JComponent, ah:G)
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a:JButton (JPanel:JComponent, ah:G)
+// 'af' command handler elapsed time: 3 seconds
+dismissDialog("Enable Core Container"); // ah:G (cv:JFrame)
+// Tcl Message: export_ip_user_files -of_objects [get_ips  axi_ethernetlite_0] -no_script -reset -quiet 
+// TclEventType: LOAD_FEATURE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// bL:g (cv:JFrame):  Upgrade IP : addNotify
+// TclEventType: FILESET_UPDATE_IP
+// TclEventType: IP_UPGRADE_COMPLETE
+// Tcl Message: upgrade_ip -vlnv xilinx.com:ip:axi_ethernetlite:3.0 [get_ips  axi_ethernetlite_0] -log ip_upgrade.log 
+// Tcl Message: Upgrading 'axi_ethernetlite_0' 
+// Tcl Message: INFO: [IP_Flow 19-3422] Upgraded axi_ethernetlite_0 (AXI EthernetLite 3.0) from revision 3 to revision 6 INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'axi_ethernetlite_0'... INFO: [Coretcl 2-1525] Wrote upgrade log to '/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/ip_upgrade.log'. 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: convert_ips [get_files  /home/leo/test_v586/v586/trunk/xci/etherlite/axi_ethernetlite_0.xci] 
+// Tcl Message: INFO: [filemgmt 56-106] Converting IP 'axi_ethernetlite_0' into core container format. INFO: [filemgmt 56-101] Creating core container '/home/leo/test_v586/v586/trunk/xci/etherlite.xcix' for IP 'axi_ethernetlite_0' 
+// TclEventType: PROJECT_CHANGE
+// Tcl Message: export_ip_user_files -of_objects  [get_files  /home/leo/test_v586/v586/trunk/xci/etherlite/axi_ethernetlite_0.xci] -sync -force -quiet 
+// TclEventType: PROJECT_CHANGE
+// Tcl Message: set_property coreContainer.enable 1 [current_project] 
+// ak:y (cv:JFrame): Enable Core Container: addNotify
+// TclEventType: DG_UPDATE_GRAPH
+selectButton(PAResourceTtoZ.UpgradeIP_OK, "OK"); // a:JButton (JPanel:JComponent, ak:y)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// HOptionPane Warning: 'A background task is running. Please wait until it completes and try again. (Background Task)'
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// [GUI Memory]: 74 MB (+722kb) [00:04:11]
+// TclEventType: DG_UPDATE_GRAPH
+selectButton("OptionPane.button", "OK"); // JButton:AbstractButton (JPanel:JComponent, U:JDialog)
+selectButton(PAResourceTtoZ.UpgradeIP_OK, "OK"); // a:JButton (JPanel:JComponent, ak:y)
+dismissDialog("Enable Core Container"); // ak:y (cv:JFrame)
+// aD:x (cv:JFrame): Generate Output Products: addNotify
+selectButton("PAResourceTtoZ.UpgradeIP_IP_UPGRADE_COMPLETED_OK", "OK"); // JButton:AbstractButton (JPanel:JComponent, T:JDialog)
+selectButton(PAResourceQtoS.SimpleOutputProductDialog_GENERATE_OUTPUT_PRODUCTS_IMMEDIATELY, "Generate"); // a:JButton (JPanel:JComponent, aD:x)
+// bL:g (cv:JFrame):  Managing Output Products : addNotify
+// Tcl Message: generate_target all [get_files  /home/leo/test_v586/v586/trunk/xci/etherlite/axi_ethernetlite_0.xci] 
+// Tcl Message: INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'axi_ethernetlite_0'... 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'axi_ethernetlite_0'... INFO: [IP_Flow 19-1686] Generating 'Implementation' target for IP 'axi_ethernetlite_0'... INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'axi_ethernetlite_0'... 
+// Tcl Message: export_ip_user_files -of_objects [get_files /home/leo/test_v586/v586/trunk/xci/etherlite/axi_ethernetlite_0.xci] -no_script -force -quiet 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_NEW
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// Tcl Message: create_ip_run [get_files -of_objects [get_fileset sources_1] /home/leo/test_v586/v586/trunk/xci/etherlite/axi_ethernetlite_0.xci] 
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_run -jobs 2 axi_ethernetlite_0_synth_1 
+// Tcl Message: [Mon Aug 29 09:18:57 2016] Launched axi_ethernetlite_0_synth_1... Run output will be captured here: /home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.runs/axi_ethernetlite_0_synth_1/runme.log 
+// TclEventType: PROJECT_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 4,981 MB. GUI used memory: 33 MB. Current time: 8/29/16 9:18:59 AM CEST
+// Tcl Message: export_simulation -of_objects [get_files /home/leo/test_v586/v586/trunk/xci/etherlite/axi_ethernetlite_0.xci] -directory {/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.ip_user_files/sim_scripts} -ip_user_files_dir {/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.ip_user_files} -ipstatic_source_dir {/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.ip_user_files/ipstatic} -force -quiet 
+selectButton(RDIResource.ProgressDialog_BACKGROUND, "Background"); // a:JButton (JPanel:JComponent, bL:g)
+dismissDialog("Managing Output Products"); // bL:g (cv:JFrame)
+selectButton("PAResourceQtoS.SimpleOutputProductDialog_OUT_OF_CONTEXT_MODULE_RUNS_WERE_LAUNCHED_OK", "OK"); // JButton:AbstractButton (JPanel:JComponent, T:JDialog)
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, TOP_SYS (TOP_SYS.v), i_axi_crossbar_0 - axi_crossbar_0 (axi_crossbar_0.xci)]", 8, false); // z:k (G:JPanel, cv:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, TOP_SYS (TOP_SYS.v), i_axi_crossbar_0 - axi_crossbar_0 (axi_crossbar_0.xci)]", 8, false, false, false, false, true, false); // z:k (G:JPanel, cv:JFrame) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_PROPERTIES, "Source Node Properties..."); // af:JMenuItem (am:JPopupMenu, Popup:JWindow)
+selectMenu(PAResourceQtoS.SrcMenu_IP_DOCUMENTATION, "IP Documentation"); // ab:JMenu (am:JPopupMenu, Popup:JWindow)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, TOP_SYS (TOP_SYS.v), i_axi_crossbar_0 - axi_crossbar_0 (axi_crossbar_0.xci)]", 8, false, false, false, false, true, false); // z:k (G:JPanel, cv:JFrame) - Popup Trigger
+selectMenuItem(PAResourceCommand.PACommandNames_UPGRADE_IP, "Upgrade IP..."); // af:JMenuItem (am:JPopupMenu, Popup:JWindow)
+// Run Command: PAResourceCommand.PACommandNames_UPGRADE_IP
+// ah:G (cv:JFrame): Enable Core Container: addNotify
+selectRadioButton(PAResourceTtoZ.UpgradeIP_CONVERT_IP_TO_CORE_CONTAINER_AND_SET, "Convert IP to Core Container and Set as Default in Project"); // a:JRadioButton (JPanel:JComponent, ah:G)
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a:JButton (JPanel:JComponent, ah:G)
+dismissDialog("Enable Core Container"); // ah:G (cv:JFrame)
+// Tcl Message: export_ip_user_files -of_objects [get_ips  axi_crossbar_0] -no_script -reset -quiet 
+// bL:g (cv:JFrame):  Upgrade IP : addNotify
+// Tcl Message: upgrade_ip -vlnv xilinx.com:ip:axi_crossbar:2.1 [get_ips  axi_crossbar_0] -log ip_upgrade.log 
+// Tcl Message: Upgrading 'axi_crossbar_0' 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [IP_Flow 19-3422] Upgraded axi_crossbar_0 (AXI Crossbar 2.1) from revision 6 to revision 9 INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'axi_crossbar_0'... 
+// TclEventType: FILESET_UPDATE_IP
+// TclEventType: IP_UPGRADE_COMPLETE
+// Tcl Message: INFO: [Coretcl 2-1525] Wrote upgrade log to '/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/ip_upgrade.log'. 
+// Tcl Message: upgrade_ip: Time (s): cpu = 00:00:10 ; elapsed = 00:00:09 . Memory (MB): peak = 5902.688 ; gain = 0.000 ; free physical = 159 ; free virtual = 5903 
+// Tcl Message: convert_ips [get_files  /home/leo/test_v586/v586/trunk/xci/crossbar_128m/axi_crossbar_0.xci] 
+// Tcl Message: ERROR: [Vivado 12-4355] Cannot convert IPs while synthesis runs are running or queued to run 
+// a:a (cv:JFrame): Critical Messages: addNotify
+dismissDialog("Upgrade IP"); // bL:g (cv:JFrame)
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // i:a (JPanel:JComponent, a:a)
+dismissDialog("Critical Messages"); // a:a (cv:JFrame)
+// TclEventType: FILE_SET_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 5,016 MB. GUI used memory: 38 MB. Current time: 8/29/16 9:19:39 AM CEST
+// TclEventType: RUN_COMPLETED
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// [GUI Memory]: 79 MB (+621kb) [00:11:33]
+// Elapsed time: 487 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, TOP_SYS (TOP_SYS.v), i_axi_crossbar_0 - axi_crossbar_0 (axi_crossbar_0.xci)]", 8, false); // z:k (G:JPanel, cv:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, TOP_SYS (TOP_SYS.v), i_axi_crossbar_0 - axi_crossbar_0 (axi_crossbar_0.xci)]", 8, false, false, false, false, true, false); // z:k (G:JPanel, cv:JFrame) - Popup Trigger
+selectMenu(PAResourceQtoS.SrcMenu_IP_DOCUMENTATION, "IP Documentation"); // ab:JMenu (am:JPopupMenu, Popup:JWindow)
+selectMenu(PAResourceCommand.PACommandNames_AUTO_UPDATE_HIER, "Hierarchy Update"); // ab:JMenu (am:JPopupMenu, Popup:JWindow)
+selectMenu(PAResourceQtoS.SrcMenu_IP_HIERARCHY, "IP Hierarchy"); // ab:JMenu (am:JPopupMenu, Popup:JWindow)
+selectTreeTable(PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE, "axi_ethernetlite_0_synth_1 ; axi_ethernetlite_0 ; synth_design Complete! ;  ;  ;  ;  ;  ;  ; 660 ; 750 ; 2 ; 0 ; 0 ; Mon Aug 29 09:18:58 CEST 2016 ; 00:01:13 ; Vivado Synthesis Defaults (Vivado Synthesis 2016) ; xc7a100tcsg324-1 ;  ; Vivado Synthesis Defaults", 3, "axi_ethernetlite_0_synth_1", 0, false); // W:as (JViewport:JComponent, cv:JFrame)
+// PAPropertyPanels.initPanels (axi_ethernetlite_0_synth_1) elapsed time: 0.2s
+collapseTreeTable(PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE, "Out-of-Context Module Runs ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; ", 2); // W:as (JViewport:JComponent, cv:JFrame)
+expandTreeTable(PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE, "Out-of-Context Module Runs ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; ", 2); // W:as (JViewport:JComponent, cv:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, TOP_SYS (TOP_SYS.v), i_ddr_axi - ddr_axi]", 5, false); // z:k (G:JPanel, cv:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, TOP_SYS (TOP_SYS.v), i_ddr_axi - ddr_axi]", 5, false, false, false, false, true, false); // z:k (G:JPanel, cv:JFrame) - Popup Trigger
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Project Manager, IP Catalog]", 4, false); // x:Y (w:G, cv:JFrame)
+// Run Command: PAResourceCommand.PACommandNames_CORE_GEN
+// bL:g (cv:JFrame):  IP Catalog : addNotify
+dismissDialog("IP Catalog"); // bL:g (cv:JFrame)
+setText("PAResourceItoN.IPCoreView_IP_CATALOG_SEARCH_FIELD", "mig", true); // OverlayTextField:JTextField (DefaultOverlayable:JPanel, cv:JFrame)
+selectTreeTable(PAResourceAtoD.CoreTreeTablePanel_CORE_TREE_TABLE, "Memory Interface Generator (MIG 7 Series) ; AXI4 ; Production ; Included ; xilinx.com:ip:mig_7series:3.0", 3, "Memory Interface Generator (MIG 7 Series)", 0, false); // O:as (JViewport:JComponent, cv:JFrame)
+selectTreeTable(PAResourceAtoD.CoreTreeTablePanel_CORE_TREE_TABLE, "Memory Interface Generator (MIG 7 Series) ; AXI4 ; Production ; Included ; xilinx.com:ip:mig_7series:3.0", 3, "Memory Interface Generator (MIG 7 Series)", 0, false, false, false, false, false, true); // O:as (JViewport:JComponent, cv:JFrame) - Double Click
+// Run Command: PAResourceCommand.PACommandNames_CUSTOMIZE_CORE
+// j:bL (cv:JFrame):  Customize IP : addNotify
+// HMemoryUtils.trashcanNow. Engine heap size: 5,052 MB. GUI used memory: 50 MB. Current time: 8/29/16 9:27:59 AM CEST
+// TclEventType: CREATE_IP_CORE
+// Tcl Message: create_ip -name mig_7series -vendor xilinx.com -library ip -version 3.0 -module_name ddr_axi 
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: set_property -dict [list CONFIG.XML_INPUT_FILE {mig_a.prj} CONFIG.RESET_BOARD_INTERFACE {Custom} CONFIG.MIG_DONT_TOUCH_PARAM {Custom} CONFIG.BOARD_MIG_PARAM {Custom}] [get_ips ddr_axi] 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: FILESET_UPDATE_IP
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: generate_target {instantiation_template} [get_files {{/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.srcs/sources_1/ip/ddr_axi/ddr_axi.xci}}] 
+// Tcl Message: INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'ddr_axi'... 
+// aD:x (cv:JFrame): Generate Output Products: addNotify
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// Tcl Message: update_compile_order -fileset sources_1 
+// Elapsed time: 97 seconds
+selectButton(PAResourceQtoS.SimpleOutputProductDialog_GENERATE_OUTPUT_PRODUCTS_IMMEDIATELY, "Generate"); // a:JButton (JPanel:JComponent, aD:x)
+// bL:g (cv:JFrame):  Managing Output Products : addNotify
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: generate_target all [get_files  {{/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.srcs/sources_1/ip/ddr_axi/ddr_axi.xci}}] 
+// Tcl Message: INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'ddr_axi'... INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'ddr_axi'... INFO: [IP_Flow 19-1686] Generating 'Implementation' target for IP 'ddr_axi'... INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'ddr_axi'... 
+// Tcl Message: export_ip_user_files -of_objects [get_files {{/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.srcs/sources_1/ip/ddr_axi/ddr_axi.xci}}] -no_script -force -quiet 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_NEW
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// Tcl Message: create_ip_run [get_files -of_objects [get_fileset sources_1] {{/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.srcs/sources_1/ip/ddr_axi/ddr_axi.xci}}] 
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// Tcl Message: launch_run -jobs 2 ddr_axi_synth_1 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: [Mon Aug 29 09:29:33 2016] Launched ddr_axi_synth_1... Run output will be captured here: /home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.runs/ddr_axi_synth_1/runme.log 
+// TclEventType: PROJECT_CHANGE
+// Tcl Message: export_simulation -of_objects [get_files {{/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.srcs/sources_1/ip/ddr_axi/ddr_axi.xci}}] -directory {/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.ip_user_files/sim_scripts} -ip_user_files_dir {/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.ip_user_files} -ipstatic_source_dir {/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.ip_user_files/ipstatic} -force -quiet 
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// 'i' command handler elapsed time: 187 seconds
+// Elapsed time: 89 seconds
+selectButton("PAResourceQtoS.SimpleOutputProductDialog_OUT_OF_CONTEXT_MODULE_RUNS_WERE_LAUNCHED_OK", "OK"); // JButton:AbstractButton (JPanel:JComponent, T:JDialog)
+// Elapsed time: 49 seconds
+selectTreeTable(PAResourceAtoD.CoreTreeTablePanel_CORE_TREE_TABLE, null, -1, null, -1, false, false, false, false, true, false); // O:as (JViewport:JComponent, cv:JFrame) - Popup Trigger
+// TclEventType: RUN_COMPLETED
+// HMemoryUtils.trashcanNow. Engine heap size: 5,072 MB. GUI used memory: 58 MB. Current time: 8/29/16 9:31:55 AM CEST
+// [Engine Memory]: 5,082 MB (+5656kb) [00:17:17]
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// [GUI Memory]: 84 MB (+1748kb) [00:17:47]
+// [GUI Memory]: 91 MB (+2605kb) [00:17:50]
+// Elapsed time: 39 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, TOP_SYS (TOP_SYS.v), i_etherlite - axi_ethernetlite_0 (axi_ethernetlite_0.xci)]", 7, false); // z:k (G:JPanel, cv:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, TOP_SYS (TOP_SYS.v), i_axi_crossbar_0 - axi_crossbar_0 (axi_crossbar_0.xci)]", 8, false); // z:k (G:JPanel, cv:JFrame)
+// [GUI Memory]: 98 MB (+2218kb) [00:17:51]
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, TOP_SYS (TOP_SYS.v), i_axi_crossbar_0 - axi_crossbar_0 (axi_crossbar_0.xci)]", 8, false, false, false, false, true, false); // z:k (G:JPanel, cv:JFrame) - Popup Trigger
+selectMenuItem(PAResourceCommand.PACommandNames_RECUSTOMIZE_CORE, "Re-customize IP..."); // af:JMenuItem (am:JPopupMenu, Popup:JWindow)
+// Run Command: PAResourceCommand.PACommandNames_RECUSTOMIZE_CORE
+// P:bL (cv:JFrame):  Re-customize IP : addNotify
+// p:g (cv:JFrame): Re-customize IP: addNotify
+dismissDialog("Re-customize IP"); // P:bL (cv:JFrame)
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a:JButton (JPanel:JComponent, p:g)
+dismissDialog("Re-customize IP"); // p:g (cv:JFrame)
+// aD:x (cv:JFrame): Generate Output Products: addNotify
+selectButton(PAResourceQtoS.SimpleOutputProductDialog_GENERATE_OUTPUT_PRODUCTS_IMMEDIATELY, "Generate"); // a:JButton (JPanel:JComponent, aD:x)
+// bL:g (cv:JFrame):  Managing Output Products : addNotify
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: generate_target all [get_files  /home/leo/test_v586/v586/trunk/xci/crossbar_128m/axi_crossbar_0.xci] 
+// Tcl Message: INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'axi_crossbar_0'... INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'axi_crossbar_0'... INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'axi_crossbar_0'... 
+// Tcl Message: export_ip_user_files -of_objects [get_files /home/leo/test_v586/v586/trunk/xci/crossbar_128m/axi_crossbar_0.xci] -no_script -force -quiet 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_NEW
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// Tcl Message: create_ip_run [get_files -of_objects [get_fileset sources_1] /home/leo/test_v586/v586/trunk/xci/crossbar_128m/axi_crossbar_0.xci] 
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// Tcl Message: launch_run -jobs 2 axi_crossbar_0_synth_1 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: [Mon Aug 29 09:32:41 2016] Launched axi_crossbar_0_synth_1... Run output will be captured here: /home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.runs/axi_crossbar_0_synth_1/runme.log 
+// TclEventType: PROJECT_CHANGE
+// Tcl Message: export_simulation -of_objects [get_files /home/leo/test_v586/v586/trunk/xci/crossbar_128m/axi_crossbar_0.xci] -directory {/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.ip_user_files/sim_scripts} -ip_user_files_dir {/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.ip_user_files} -ipstatic_source_dir {/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.ip_user_files/ipstatic} -force -quiet 
+selectButton(RDIResource.ProgressDialog_BACKGROUND, "Background"); // a:JButton (JPanel:JComponent, bL:g)
+// HMemoryUtils.trashcanNow. Engine heap size: 5,115 MB. GUI used memory: 58 MB. Current time: 8/29/16 9:32:44 AM CEST
+dismissDialog("Managing Output Products"); // bL:g (cv:JFrame)
+selectButton("PAResourceQtoS.SimpleOutputProductDialog_OUT_OF_CONTEXT_MODULE_RUNS_WERE_LAUNCHED_OK", "OK"); // JButton:AbstractButton (JPanel:JComponent, T:JDialog)
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: RUN_COMPLETED
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 5,132 MB. GUI used memory: 64 MB. Current time: 8/29/16 9:35:59 AM CEST
+// Elapsed time: 645 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 25, false); // x:Y (w:G, cv:JFrame)
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+// G:be (cv:JFrame): No Implementation Results Available: addNotify
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a:JButton (JPanel:JComponent, G:be)
+// bL:g (cv:JFrame):  Resetting Runs : addNotify
+dismissDialog("No Implementation Results Available"); // G:be (cv:JFrame)
+dismissDialog("Resetting Runs"); // bL:g (cv:JFrame)
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 2 
+// Tcl Message: [Mon Aug 29 09:43:33 2016] Launched synth_1... Run output will be captured here: /home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.runs/synth_1/runme.log [Mon Aug 29 09:43:33 2016] Launched impl_1... Run output will be captured here: /home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.runs/impl_1/runme.log 

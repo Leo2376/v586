@@ -1,0 +1,88 @@
+#-----------------------------------------------------------
+# Vivado v2016.1 (64-bit)
+# SW Build 1538259 on Fri Apr  8 15:45:23 MDT 2016
+# IP Build 1537824 on Fri Apr  8 04:28:57 MDT 2016
+# Start of session at: Sat Sep 10 19:13:39 2016
+# Process ID: 428
+# Current directory: /home/leo/cpu/vault.memo/v10.8.2
+# Command line: vivado
+# Log file: /home/leo/cpu/vault.memo/v10.8.2/vivado.log
+# Journal file: /home/leo/cpu/vault.memo/v10.8.2/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project {/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.xpr}
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2016.1/data/ip'.
+open_project: Time (s): cpu = 00:00:31 ; elapsed = 00:00:12 . Memory (MB): peak = 5917.090 ; gain = 206.457 ; free physical = 2143 ; free virtual = 6530
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 2
+[Sat Sep 10 19:14:33 2016] Launched synth_1...
+Run output will be captured here: /home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.runs/synth_1/runme.log
+[Sat Sep 10 19:14:33 2016] Launched impl_1...
+Run output will be captured here: /home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.runs/impl_1/runme.log
+open_hw
+connect_hw_server
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2016.1
+  **** Build date : Apr  8 2016-16:06:49
+    ** Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
+
+
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292742325A
+set_property PROGRAM.FILE {/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.runs/impl_1/TOP_SYS.bit} [lindex [get_hw_devices] 0]
+current_hw_device [lindex [get_hw_devices] 0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices] 0]
+INFO: [Labtools 27-1435] Device xc7a100t (JTAG device index = 0) is not programmed (DONE status = 0).
+set_property PROBES.FILE {} [lindex [get_hw_devices] 0]
+set_property PROGRAM.FILE {/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.runs/impl_1/TOP_SYS.bit} [lindex [get_hw_devices] 0]
+program_hw_devices [lindex [get_hw_devices] 0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3123] The debug hub core was not detected at User Scan Chain 1 or 3.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active OR
+2. Manually launch hw_server with -e "set xsdb-user-bscan <C_USER_SCAN_CHAIN scan_chain_number>" to detect the debug hub at User Scan Chain of 2 or 4. To determine the user scan chain setting, open the implemented design and use: get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub].
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210292742325A
+close_hw
+open_run impl_1
+INFO: [Netlist 29-17] Analyzing 905 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2016.1
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+WARNING: [Constraints 18-550] Could not create 'IOSTANDARD' constraint because net 'i_etherlite/phy_mdc' is not directly connected to top level port. 'IOSTANDARD' is ignored by Vivado but preserved for implementation tool. [/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.runs/impl_1/.Xil/Vivado-922-dev-machine/dcp_2/axi_ethernetlite_0.edf:46067]
+WARNING: [Constraints 18-550] Could not create 'IOSTANDARD' constraint because net 'i_etherlite/phy_mdio_t' is not directly connected to top level port. 'IOSTANDARD' is ignored by Vivado but preserved for implementation tool. [/home/leo/Desktop/XILINX MCSs/v10.8.2ddr/v10.8.2ddr.runs/impl_1/.Xil/Vivado-922-dev-machine/dcp_2/axi_ethernetlite_0.edf:46084]
+Parsing XDC File [/home/leo/cpu/vault.memo/v10.8.2/.Xil/Vivado-428-dev-machine/dcp/TOP_SYS_early.xdc]
+Finished Parsing XDC File [/home/leo/cpu/vault.memo/v10.8.2/.Xil/Vivado-428-dev-machine/dcp/TOP_SYS_early.xdc]
+Parsing XDC File [/home/leo/cpu/vault.memo/v10.8.2/.Xil/Vivado-428-dev-machine/dcp/TOP_SYS.xdc]
+Finished Parsing XDC File [/home/leo/cpu/vault.memo/v10.8.2/.Xil/Vivado-428-dev-machine/dcp/TOP_SYS.xdc]
+Parsing XDC File [/home/leo/cpu/vault.memo/v10.8.2/.Xil/Vivado-428-dev-machine/dcp/TOP_SYS_late.xdc]
+Finished Parsing XDC File [/home/leo/cpu/vault.memo/v10.8.2/.Xil/Vivado-428-dev-machine/dcp/TOP_SYS_late.xdc]
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF File: Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 6393.133 ; gain = 35.496 ; free physical = 668 ; free virtual = 5423
+Restored from archive | CPU: 3.060000 secs | Memory: 43.574738 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 6393.133 ; gain = 35.496 ; free physical = 668 ; free virtual = 5423
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 155 instances were transformed.
+  IOBUF => IOBUF (IBUF, OBUFT): 17 instances
+  IOBUFDS_INTERMDISABLE => IOBUFDS_INTERMDISABLE (IBUFDS_INTERMDISABLE_INT, IBUFDS_INTERMDISABLE_INT, OBUFTDS, OBUFTDS, INV): 2 instances
+  IOBUF_INTERMDISABLE => IOBUF_INTERMDISABLE (IBUF_INTERMDISABLE, OBUFT): 16 instances
+  LUT6_2 => LUT6_2 (LUT6, LUT5): 13 instances
+  OBUFDS => OBUFDS_DUAL_BUF (OBUFDS, OBUFDS, INV): 1 instances
+  RAM16X1S => RAM32X1S (RAMS32): 4 instances
+  RAM32M => RAM32M (RAMS32, RAMS32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32): 102 instances
+
+open_run: Time (s): cpu = 00:00:47 ; elapsed = 00:00:24 . Memory (MB): peak = 6538.785 ; gain = 472.168 ; free physical = 560 ; free virtual = 5278
+ERROR: [Common 17-165] Too many positional options when parsing 'MCSs/v10.8.2ddr/v10.8.2ddr.runs/impl_1/TOP_SYS_power_routed.rpx', please type 'open_report -help' for usage info.
+CRITICAL WARNING: [Timing 38-282] The design failed to meet the timing requirements. Please see the timing summary report for details on the timing violations.

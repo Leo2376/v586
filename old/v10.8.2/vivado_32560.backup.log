@@ -1,0 +1,39 @@
+#-----------------------------------------------------------
+# Vivado v2016.1 (64-bit)
+# SW Build 1538259 on Fri Apr  8 15:45:23 MDT 2016
+# IP Build 1537824 on Fri Apr  8 04:28:57 MDT 2016
+# Start of session at: Sat Sep 10 19:08:19 2016
+# Process ID: 32560
+# Current directory: /home/leo/cpu/vault.memo/v10.8.2
+# Command line: vivado
+# Log file: /home/leo/cpu/vault.memo/v10.8.2/vivado.log
+# Journal file: /home/leo/cpu/vault.memo/v10.8.2/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_hw
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2016.1/data/ip'.
+connect_hw_server
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2016.1
+  **** Build date : Apr  8 2016-16:06:49
+    ** Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
+
+
+ERROR: [Labtoolstcl 44-494] There is no active target available for server at localhost.
+ Targets(s) ", jsn1" may be locked by another hw_server.
+disconnect_hw_server localhost:3121
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+disconnect_hw_server localhost:3121
+connect_hw_server
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+ERROR: [Labtoolstcl 44-494] There is no active target available for server at localhost.
+ Targets(s) "jsn2" may be locked by another hw_server.
+disconnect_hw_server localhost:3121
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+exit
+INFO: [Common 17-206] Exiting Vivado at Sat Sep 10 19:13:31 2016...

@@ -1,0 +1,2 @@
+iverilog -g2005 -o tb_udeco.vvp -t vvp udeco.v udecox.v tb_udeco.v
+vvp tb_udeco.vvp

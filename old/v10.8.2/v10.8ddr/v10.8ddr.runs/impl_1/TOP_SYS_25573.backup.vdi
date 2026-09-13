@@ -1,0 +1,20 @@
+#-----------------------------------------------------------
+# Vivado v2015.2 (64-bit)
+# SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
+# IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
+# Start of session at: Thu Jun  2 07:58:25 2016
+# Process ID: 25272
+# Log file: /home/leo/cpu/vault.memo/v10.8ddr/v10.8ddr/v10.8ddr.runs/impl_1/TOP_SYS.vdi
+# Journal file: /home/leo/cpu/vault.memo/v10.8ddr/v10.8ddr/v10.8ddr.runs/impl_1/vivado.jou
+#-----------------------------------------------------------
+source TOP_SYS.tcl -notrace
+WARNING: [Board 49-26] cannot add Board Part digilentinc.com:zybo:part0:1.0 available at /opt/Xilinx/Vivado/2015.2/data/boards/board_files/zybo/B.3/board.xml as part xc7z010clg400-1 specified in board_part file is either invalid or not available
+Design is defaulting to srcset: sources_1
+Design is defaulting to constrset: constrs_1
+INFO: [Project 1-454] Reading design checkpoint '/home/leo/cpu/vault.memo/v10.8ddr/v10.8ddr/v10.8ddr.runs/axi_ethernetlite_0_synth_1/axi_ethernetlite_0.dcp' for cell 'i_etherlite'
+INFO: [Project 1-454] Reading design checkpoint '/home/leo/cpu/vault.memo/v10.8ddr/v10.8ddr/v10.8ddr.runs/ddr_axi_synth_1/ddr_axi.dcp' for cell 'i_ddr_axi'
+INFO: [Project 1-454] Reading design checkpoint '/home/leo/cpu/vault.memo/v10.8ddr/v10.8ddr/v10.8ddr.runs/axi_crossbar_0_synth_1/axi_crossbar_0.dcp' for cell 'i_axi_crossbar_0'
+INFO: [Netlist 29-17] Analyzing 1042 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2015.2
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
