@@ -1,0 +1,99 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_lite_ipif_v3_0/hdl/src/vhdl/ipif_pkg.vhd" into library axi_lite_ipif_v3_0
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_lite_ipif_v3_0/hdl/src/vhdl/pselect_f.vhd" into library axi_lite_ipif_v3_0
+INFO: [VRFC 10-307] analyzing entity pselect_f
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_lite_ipif_v3_0/hdl/src/vhdl/address_decoder.vhd" into library axi_lite_ipif_v3_0
+INFO: [VRFC 10-307] analyzing entity address_decoder
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_lite_ipif_v3_0/hdl/src/vhdl/slave_attachment.vhd" into library axi_lite_ipif_v3_0
+INFO: [VRFC 10-307] analyzing entity slave_attachment
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_lite_ipif_v3_0/hdl/src/vhdl/axi_lite_ipif.vhd" into library axi_lite_ipif_v3_0
+INFO: [VRFC 10-307] analyzing entity axi_lite_ipif
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/lib_cdc_v1_0/hdl/src/vhdl/cdc_sync.vhd" into library lib_cdc_v1_0
+INFO: [VRFC 10-307] analyzing entity cdc_sync
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/lib_bmg_v1_0/hdl/src/vhdl/blk_mem_gen_wrapper.vhd" into library lib_bmg_v1_0
+INFO: [VRFC 10-307] analyzing entity blk_mem_gen_wrapper
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/fifo_generator_v12_0/hdl/fifo_generator_v12_0_rfs.vhd" into library fifo_generator_v12_0
+INFO: [VRFC 10-307] analyzing entity input_blk
+INFO: [VRFC 10-307] analyzing entity output_blk
+INFO: [VRFC 10-307] analyzing entity shft_wrapper
+INFO: [VRFC 10-307] analyzing entity shft_ram
+INFO: [VRFC 10-307] analyzing entity wr_pf_as
+INFO: [VRFC 10-307] analyzing entity wr_pf_ss
+INFO: [VRFC 10-307] analyzing entity rd_pe_as
+INFO: [VRFC 10-307] analyzing entity rd_pe_ss
+INFO: [VRFC 10-307] analyzing entity synchronizer_ff
+INFO: [VRFC 10-307] analyzing entity delay
+INFO: [VRFC 10-307] analyzing entity bin_cntr
+INFO: [VRFC 10-307] analyzing entity clk_x_pntrs_builtin
+INFO: [VRFC 10-307] analyzing entity logic_builtin
+INFO: [VRFC 10-307] analyzing entity builtin_prim
+INFO: [VRFC 10-307] analyzing entity builtin_extdepth
+INFO: [VRFC 10-307] analyzing entity builtin_top
+INFO: [VRFC 10-307] analyzing entity reset_builtin
+INFO: [VRFC 10-307] analyzing entity builtin_prim_v6
+INFO: [VRFC 10-307] analyzing entity builtin_extdepth_v6
+INFO: [VRFC 10-307] analyzing entity builtin_extdepth_low_latency
+INFO: [VRFC 10-307] analyzing entity builtin_top_v6
+INFO: [VRFC 10-307] analyzing entity fifo_generator_v12_0_builtin
+INFO: [VRFC 10-307] analyzing entity bram_sync_reg
+INFO: [VRFC 10-307] analyzing entity bram_fifo_rstlogic
+INFO: [VRFC 10-307] analyzing entity reset_blk_ramfifo
+INFO: [VRFC 10-307] analyzing entity axi_reg_slice
+INFO: [VRFC 10-307] analyzing entity fifo_generator_top
+INFO: [VRFC 10-307] analyzing entity fifo_generator_v12_0_synth
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/lib_fifo_v1_0/hdl/src/vhdl/async_fifo_fg.vhd" into library lib_fifo_v1_0
+INFO: [VRFC 10-307] analyzing entity async_fifo_fg
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/lib_fifo_v1_0/hdl/src/vhdl/sync_fifo_fg.vhd" into library lib_fifo_v1_0
+INFO: [VRFC 10-307] analyzing entity sync_fifo_fg
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/ld_arith_reg.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity ld_arith_reg
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/mux_onehot_f.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity mux_onehot_f
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/mac_pkg.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/lfsr16.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity lfsr16
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/defer_state.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity defer_state
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/crcnibshiftreg.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity crcnibshiftreg
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/cntr5bit.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity cntr5bit
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/tx_statemachine.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity tx_statemachine
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/tx_intrfce.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity tx_intrfce
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/rx_statemachine.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity rx_statemachine
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/rx_intrfce.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity rx_intrfce
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/ram16x4.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity ram16x4
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/msh_cnt.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity msh_cnt
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/deferral.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity deferral
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/crcgentx.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity crcgentx
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/crcgenrx.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity crcgenrx
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/bocntr.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity bocntr
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/transmit.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity transmit
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/receive.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity receive
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/macaddrram.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity MacAddrRAM
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/mdio_if.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity mdio_if
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/emac_dpram.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity emac_dpram
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/emac.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity emac
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/xemac.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity xemac
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/axi_interface.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity axi_interface
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/axi_ethernetlite_v3_0/hdl/src/vhdl/axi_ethernetlite.vhd" into library axi_ethernetlite_v3_0
+INFO: [VRFC 10-307] analyzing entity axi_ethernetlite
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/leo/cpu/svn4/trunk/xci/etherlite/sim/axi_ethernetlite_0.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity axi_ethernetlite_0

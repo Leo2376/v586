@@ -1,0 +1,18 @@
+#-----------------------------------------------------------
+# Vivado v2016.1 (64-bit)
+# SW Build 1538259 on Fri Apr  8 15:45:23 MDT 2016
+# IP Build 1537824 on Fri Apr  8 04:28:57 MDT 2016
+# Start of session at: Sat Sep 10 19:08:19 2016
+# Process ID: 32560
+# Current directory: /home/leo/cpu/vault.memo/v10.8.2
+# Command line: vivado
+# Log file: /home/leo/cpu/vault.memo/v10.8.2/vivado.log
+# Journal file: /home/leo/cpu/vault.memo/v10.8.2/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_hw
+connect_hw_server
+disconnect_hw_server localhost:3121
+disconnect_hw_server localhost:3121
+connect_hw_server
+disconnect_hw_server localhost:3121

@@ -1,0 +1,10 @@
+#-----------------------------------------------------------
+# Vivado v2015.2 (64-bit)
+# SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
+# IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
+# Start of session at: Fri Jul  8 18:07:34 2016
+# Process ID: 14422
+# Log file: /home/leo/cpu/vault.memo/v10.8ddr/v10.8ddr/v10.8ddr.runs/axi_crossbar_0_synth_1/axi_crossbar_0.vds
+# Journal file: /home/leo/cpu/vault.memo/v10.8ddr/v10.8ddr/v10.8ddr.runs/axi_crossbar_0_synth_1/vivado.jou
+#-----------------------------------------------------------
+source axi_crossbar_0.tcl -notrace

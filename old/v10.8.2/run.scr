@@ -1,0 +1,67 @@
+echo "Generating boot mem file for simulation ..."
+\rm test.asm
+as ../../boot/test.s -o test.o
+objcopy -O ihex test.o test.ihex
+objdump -m i386 -d test.o > test.asm
+./ihex2mem.tcl -ihex test.ihex -out code.mem -mem_size 1024
+\cp code.mem boot.mem
+
+cp ../../bin/vmlinux.raw bin2v.bin
+./bin2v4.tcl
+cp bin2v-1.mem /home/leo/cpu/mem/vmlinux-1.mem
+cp bin2v-2.mem /home/leo/cpu/mem/vmlinux-2.mem
+cp bin2v-3.mem /home/leo/cpu/mem/vmlinux-3.mem
+cp bin2v-4.mem /home/leo/cpu/mem/vmlinux-4.mem
+
+
+iverilog -g2005 -o tb.vvp -t vvp -I. \
+notech/notech_xor2.v \
+notech/notech_reg.v \
+notech/notech_reg_set.v \
+notech/notech_or4.v \
+notech/notech_or2.v \
+notech/notech_nor4.v \
+notech/notech_nor2.v \
+notech/notech_nao4.v \
+notech/notech_nao3.v \
+notech/notech_nand3.v \
+notech/notech_nand2.v \
+notech/notech_mux4.v \
+notech/notech_mux2.v \
+notech/notech_inv.v \
+notech/notech_ha2.v \
+notech/notech_fa2.v \
+notech/notech_ao4.v \
+notech/notech_ao3.v \
+notech/notech_and4.v \
+notech/notech_and3.v \
+notech/notech_and2.v \
+vliw.v \
+arithbox.v \
+cacheram.v \
+shiftbox.v \
+deco_rm.v \
+deco8.v \
+udeco.v \
+acu.v \
+psram_axi.v \
+biu32_axi.v \
+cmp14.v \
+core.v \
+deco.v \
+extram.v \
+axi_rom.v \
+synthetic_op.v \
+tlb.v \
+TOP_SYS.v \
+uart_16750.v \
+useq.v \
+v586.v \
+v8253_counter.v \
+v8253.v \
+v8259.v \
+tb_top.v
+
+
+vvp tb.vvp
+

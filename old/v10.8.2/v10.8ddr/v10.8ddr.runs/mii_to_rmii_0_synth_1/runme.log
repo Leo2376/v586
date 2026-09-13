@@ -1,0 +1,423 @@
+
+*** Running vivado
+    with args -log mii_to_rmii_0.vds -m64 -mode batch -messageDb vivado.pb -notrace -source mii_to_rmii_0.tcl
+
+WARNING: Default location for XILINX_VIVADO_HLS not found: 
+
+****** Vivado v2015.2 (64-bit)
+  **** SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
+  **** IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
+    ** Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
+
+source mii_to_rmii_0.tcl -notrace
+WARNING: [Board 49-26] cannot add Board Part digilentinc.com:zybo:part0:1.0 available at /opt/Xilinx/Vivado/2015.2/data/boards/board_files/zybo/B.3/board.xml as part xc7z010clg400-1 specified in board_part file is either invalid or not available
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2015.2/data/ip'.
+WARNING: [IP_Flow 19-3664] IP 'mii_to_rmii_0' generated file not found '/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_0.dcp'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'mii_to_rmii_0' generated file not found '/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_0_stub.v'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'mii_to_rmii_0' generated file not found '/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_0_stub.vhdl'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'mii_to_rmii_0' generated file not found '/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_0_funcsim.v'. Please regenerate to continue.
+WARNING: [IP_Flow 19-3664] IP 'mii_to_rmii_0' generated file not found '/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_0_funcsim.vhdl'. Please regenerate to continue.
+Command: synth_design -top mii_to_rmii_0 -part xc7a100tcsg324-1 -directive AreaOptimizedHigh -resource_sharing on -control_set_opt_threshold 1 -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 951.168 ; gain = 142.520 ; free physical = 120 ; free virtual = 5276
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'mii_to_rmii_0' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/synth/mii_to_rmii_0.vhd:81]
+	Parameter C_INSTANCE bound to: mii_to_rmii_0 - type: string 
+	Parameter C_FIXED_SPEED bound to: 1'b1 
+	Parameter C_SPEED_100 bound to: 1'b1 
+INFO: [Synth 8-3491] module 'mii_to_rmii' declared at '/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/mii_to_rmii.vhd:101' bound to instance 'U0' of component 'mii_to_rmii' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/synth/mii_to_rmii_0.vhd:136]
+INFO: [Synth 8-638] synthesizing module 'mii_to_rmii' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/mii_to_rmii.vhd:165]
+	Parameter C_INSTANCE bound to: mii_to_rmii_0 - type: string 
+	Parameter C_FIXED_SPEED bound to: 1'b1 
+	Parameter C_SPEED_100 bound to: 1'b1 
+INFO: [Synth 8-638] synthesizing module 'rmii_tx_fixed' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/rmii_tx_fixed.vhd:133]
+	Parameter C_RESET_ACTIVE bound to: 1'b0 
+INFO: [Synth 8-256] done synthesizing module 'rmii_tx_fixed' (1#1) [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/rmii_tx_fixed.vhd:133]
+INFO: [Synth 8-638] synthesizing module 'rmii_rx_fixed' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/rmii_rx_fixed.vhd:139]
+	Parameter C_RESET_ACTIVE bound to: 1'b0 
+	Parameter C_SPEED_100 bound to: 1'b1 
+INFO: [Synth 8-5534] Detected attribute (* shreg_extract = "no" *) [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/rmii_rx_fixed.vhd:798]
+INFO: [Synth 8-5534] Detected attribute (* shreg_extract = "no" *) [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/rmii_rx_fixed.vhd:808]
+INFO: [Synth 8-5534] Detected attribute (* shreg_extract = "no" *) [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/rmii_rx_fixed.vhd:815]
+	Parameter C_DATA_BITS bound to: 5 - type: integer 
+	Parameter C_DEPTH bound to: 16 - type: integer 
+INFO: [Synth 8-3491] module 'SRL_FIFO' declared at '/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:86' bound to instance 'I_SRL_FIFO' of component 'srl_fifo' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/rmii_rx_fixed.vhd:860]
+INFO: [Synth 8-638] synthesizing module 'SRL_FIFO' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:106]
+	Parameter C_DATA_BITS bound to: 5 - type: integer 
+	Parameter C_DEPTH bound to: 16 - type: integer 
+	Parameter C_XON bound to: 0 - type: bool 
+INFO: [Synth 8-3491] module 'FDR' declared at '/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:3003' bound to instance 'Data_Exists_DFF' of component 'FDR' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:200]
+INFO: [Synth 8-638] synthesizing module 'FDR' [/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:3003]
+	Parameter INIT bound to: 1'b0 
+INFO: [Synth 8-256] done synthesizing module 'FDR' (2#1) [/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:3003]
+INFO: [Synth 8-3491] module 'MUXCY_L' declared at '/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:16678' bound to instance 'MUXCY_L_I' of component 'MUXCY_L' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:217]
+INFO: [Synth 8-638] synthesizing module 'MUXCY_L' [/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:16678]
+INFO: [Synth 8-256] done synthesizing module 'MUXCY_L' (3#1) [/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:16678]
+INFO: [Synth 8-3491] module 'XORCY' declared at '/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:35694' bound to instance 'XORCY_I' of component 'XORCY' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:224]
+INFO: [Synth 8-638] synthesizing module 'XORCY' [/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:35694]
+INFO: [Synth 8-256] done synthesizing module 'XORCY' (4#1) [/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:35694]
+INFO: [Synth 8-3491] module 'FDRE' declared at '/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:3016' bound to instance 'FDRE_I' of component 'FDRE' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:230]
+INFO: [Synth 8-638] synthesizing module 'FDRE' [/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:3016]
+	Parameter INIT bound to: 1'b0 
+	Parameter IS_C_INVERTED bound to: 1'b0 
+	Parameter IS_D_INVERTED bound to: 1'b0 
+	Parameter IS_R_INVERTED bound to: 1'b0 
+INFO: [Synth 8-256] done synthesizing module 'FDRE' (5#1) [/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:3016]
+INFO: [Synth 8-3491] module 'MUXCY_L' declared at '/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:16678' bound to instance 'MUXCY_L_I' of component 'MUXCY_L' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:217]
+INFO: [Synth 8-3491] module 'XORCY' declared at '/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:35694' bound to instance 'XORCY_I' of component 'XORCY' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:224]
+INFO: [Synth 8-3491] module 'FDRE' declared at '/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:3016' bound to instance 'FDRE_I' of component 'FDRE' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:230]
+INFO: [Synth 8-3491] module 'MUXCY_L' declared at '/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:16678' bound to instance 'MUXCY_L_I' of component 'MUXCY_L' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:217]
+INFO: [Synth 8-3491] module 'XORCY' declared at '/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:35694' bound to instance 'XORCY_I' of component 'XORCY' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:224]
+INFO: [Synth 8-3491] module 'FDRE' declared at '/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:3016' bound to instance 'FDRE_I' of component 'FDRE' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:230]
+INFO: [Synth 8-3491] module 'MUXCY_L' declared at '/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:16678' bound to instance 'MUXCY_L_I' of component 'MUXCY_L' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:217]
+INFO: [Synth 8-3491] module 'XORCY' declared at '/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:35694' bound to instance 'XORCY_I' of component 'XORCY' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:224]
+INFO: [Synth 8-3491] module 'FDRE' declared at '/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:3016' bound to instance 'FDRE_I' of component 'FDRE' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:230]
+INFO: [Synth 8-3491] module 'SRL16E' declared at '/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:34538' bound to instance 'SRL16E_I' of component 'SRL16E' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:241]
+INFO: [Synth 8-638] synthesizing module 'SRL16E' [/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:34538]
+	Parameter INIT bound to: 16'b0000000000000000 
+	Parameter IS_CLK_INVERTED bound to: 1'b0 
+INFO: [Synth 8-256] done synthesizing module 'SRL16E' (6#1) [/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:34538]
+INFO: [Synth 8-3491] module 'SRL16E' declared at '/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:34538' bound to instance 'SRL16E_I' of component 'SRL16E' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:241]
+INFO: [Synth 8-3491] module 'SRL16E' declared at '/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:34538' bound to instance 'SRL16E_I' of component 'SRL16E' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:241]
+INFO: [Synth 8-3491] module 'SRL16E' declared at '/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:34538' bound to instance 'SRL16E_I' of component 'SRL16E' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:241]
+INFO: [Synth 8-3491] module 'SRL16E' declared at '/opt/Xilinx/Vivado/2015.2/scripts/rt/data/unisim_comp.v:34538' bound to instance 'SRL16E_I' of component 'SRL16E' [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:241]
+INFO: [Synth 8-256] done synthesizing module 'SRL_FIFO' (7#1) [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/srl_fifo.vhd:106]
+INFO: [Synth 8-256] done synthesizing module 'rmii_rx_fixed' (8#1) [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/rmii_rx_fixed.vhd:139]
+INFO: [Synth 8-256] done synthesizing module 'mii_to_rmii' (9#1) [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_v2_0/hdl/src/vhdl/mii_to_rmii.vhd:165]
+INFO: [Synth 8-256] done synthesizing module 'mii_to_rmii_0' (10#1) [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/synth/mii_to_rmii_0.vhd:81]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 988.457 ; gain = 179.809 ; free physical = 109 ; free virtual = 5219
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 988.457 ; gain = 179.809 ; free physical = 107 ; free virtual = 5217
+---------------------------------------------------------------------------------
+INFO: [Netlist 29-17] Analyzing 9 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_0_ooc.xdc] for cell 'U0'
+Finished Parsing XDC File [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_0_ooc.xdc] for cell 'U0'
+Parsing XDC File [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_0_board.xdc] for cell 'U0'
+Finished Parsing XDC File [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_0_board.xdc] for cell 'U0'
+Parsing XDC File [/home/leo/cpu/vault.memo/v10.8ddr/v10.8ddr/v10.8ddr.runs/mii_to_rmii_0_synth_1/dont_touch.xdc]
+Finished Parsing XDC File [/home/leo/cpu/vault.memo/v10.8ddr/v10.8ddr/v10.8ddr.runs/mii_to_rmii_0_synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 5 instances were transformed.
+  FDR => FDRE: 1 instances
+  MUXCY_L => MUXCY: 4 instances
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 1298.902 ; gain = 0.000 ; free physical = 104 ; free virtual = 4968
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:30 ; elapsed = 00:00:34 . Memory (MB): peak = 1298.906 ; gain = 490.258 ; free physical = 131 ; free virtual = 4786
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a100tcsg324-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:30 ; elapsed = 00:00:34 . Memory (MB): peak = 1298.906 ; gain = 490.258 ; free physical = 130 ; free virtual = 4786
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property DONT_TOUCH = true for U0. (constraint file  auto generated constraint, line ).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:30 ; elapsed = 00:00:34 . Memory (MB): peak = 1298.906 ; gain = 490.258 ; free physical = 126 ; free virtual = 4782
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'present_state_reg' in module 'rmii_tx_fixed'
+INFO: [Synth 8-5544] ROM "next_state" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "buffer_Empty" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "buffer_Full" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                     Old Encoding 
+---------------------------------------------------------------------------------------------------
+              idle_clk_l |                            00000 |                            00000
+              idle_clk_h |                            00001 |                            00001
+     tx100_dibit_0_clk_l |                            00010 |                            00010
+     tx100_dibit_1_clk_h |                            00011 |                            00011
+     tx10_dibit_0_clk_l0 |                            00100 |                            00100
+     tx10_dibit_0_clk_l1 |                            00101 |                            00101
+     tx10_dibit_0_clk_l2 |                            00110 |                            00110
+     tx10_dibit_0_clk_l3 |                            00111 |                            00111
+     tx10_dibit_0_clk_l4 |                            01000 |                            01000
+     tx10_dibit_0_clk_l5 |                            01001 |                            01001
+     tx10_dibit_0_clk_l6 |                            01010 |                            01010
+     tx10_dibit_0_clk_l7 |                            01011 |                            01011
+     tx10_dibit_0_clk_l8 |                            01100 |                            01100
+     tx10_dibit_0_clk_l9 |                            01101 |                            01101
+     tx10_dibit_1_clk_h0 |                            01110 |                            01110
+     tx10_dibit_1_clk_h1 |                            01111 |                            01111
+     tx10_dibit_1_clk_h2 |                            10000 |                            10000
+     tx10_dibit_1_clk_h3 |                            10001 |                            10001
+     tx10_dibit_1_clk_h4 |                            10010 |                            10010
+     tx10_dibit_1_clk_h5 |                            10011 |                            10011
+     tx10_dibit_1_clk_h6 |                            10100 |                            10100
+     tx10_dibit_1_clk_h7 |                            10101 |                            10101
+     tx10_dibit_1_clk_h8 |                            10110 |                            10110
+     tx10_dibit_1_clk_h9 |                            10111 |                            10111
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'present_state_reg' using encoding 'sequential' in module 'rmii_tx_fixed'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:31 ; elapsed = 00:00:34 . Memory (MB): peak = 1298.906 ; gain = 490.258 ; free physical = 124 ; free virtual = 4743
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---XORs : 
+	   2 Input      1 Bit         XORs := 6     
++---Registers : 
+	                4 Bit    Registers := 8     
+	                2 Bit    Registers := 9     
+	                1 Bit    Registers := 29    
++---Muxes : 
+	  25 Input      5 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 1     
+	   6 Input      2 Bit        Muxes := 2     
+	  24 Input      1 Bit        Muxes := 4     
+	   2 Input      1 Bit        Muxes := 5     
+	   4 Input      1 Bit        Muxes := 4     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module rmii_tx_fixed 
+Detailed RTL Component Info : 
++---XORs : 
+	   2 Input      1 Bit         XORs := 2     
++---Registers : 
+	                4 Bit    Registers := 1     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 3     
++---Muxes : 
+	  25 Input      5 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 1     
+	  24 Input      1 Bit        Muxes := 4     
+Module SRL_FIFO 
+Detailed RTL Component Info : 
++---XORs : 
+	   2 Input      1 Bit         XORs := 4     
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 2     
+Module rmii_rx_fixed 
+Detailed RTL Component Info : 
++---Registers : 
+	                4 Bit    Registers := 4     
+	                2 Bit    Registers := 4     
+	                1 Bit    Registers := 11    
++---Muxes : 
+	   2 Input      4 Bit        Muxes := 1     
+	   6 Input      2 Bit        Muxes := 2     
+	   4 Input      1 Bit        Muxes := 4     
+	   2 Input      1 Bit        Muxes := 3     
+Module mii_to_rmii 
+Detailed RTL Component Info : 
++---Registers : 
+	                4 Bit    Registers := 3     
+	                2 Bit    Registers := 4     
+	                1 Bit    Registers := 15    
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+Start Parallel Synthesis Optimization  : Time (s): cpu = 00:00:31 ; elapsed = 00:00:35 . Memory (MB): peak = 1298.906 ; gain = 490.258 ; free physical = 114 ; free virtual = 4733
+---------------------------------------------------------------------------------
+Start Cross Boundary Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Cross Boundary Optimization : Time (s): cpu = 00:00:31 ; elapsed = 00:00:35 . Memory (MB): peak = 1298.906 ; gain = 490.258 ; free physical = 110 ; free virtual = 4728
+---------------------------------------------------------------------------------
+Finished Parallel Reinference  : Time (s): cpu = 00:00:31 ; elapsed = 00:00:35 . Memory (MB): peak = 1298.906 ; gain = 490.258 ; free physical = 110 ; free virtual = 4728
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Area Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Area Optimization : Time (s): cpu = 00:00:31 ; elapsed = 00:00:35 . Memory (MB): peak = 1298.910 ; gain = 490.262 ; free physical = 114 ; free virtual = 4702
+---------------------------------------------------------------------------------
+Finished Parallel Area Optimization  : Time (s): cpu = 00:00:31 ; elapsed = 00:00:35 . Memory (MB): peak = 1298.910 ; gain = 490.262 ; free physical = 114 ; free virtual = 4702
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:00:31 ; elapsed = 00:00:35 . Memory (MB): peak = 1298.910 ; gain = 490.262 ; free physical = 114 ; free virtual = 4702
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:55 ; elapsed = 00:01:00 . Memory (MB): peak = 1298.910 ; gain = 490.262 ; free physical = 109 ; free virtual = 4430
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:55 ; elapsed = 00:01:00 . Memory (MB): peak = 1298.910 ; gain = 490.262 ; free physical = 108 ; free virtual = 4430
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-3332] Sequential element (\RMII_FIXED.I_RX/RX_100_MBPS.fifo_din_dv_reg ) is unused and will be removed from module mii_to_rmii.
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:55 ; elapsed = 00:01:00 . Memory (MB): peak = 1298.910 ; gain = 490.262 ; free physical = 134 ; free virtual = 4413
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:56 ; elapsed = 00:01:01 . Memory (MB): peak = 1298.910 ; gain = 490.262 ; free physical = 136 ; free virtual = 4413
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:56 ; elapsed = 00:01:01 . Memory (MB): peak = 1298.910 ; gain = 490.262 ; free physical = 136 ; free virtual = 4413
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:56 ; elapsed = 00:01:01 . Memory (MB): peak = 1298.910 ; gain = 490.262 ; free physical = 136 ; free virtual = 4413
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports : Time (s): cpu = 00:00:56 ; elapsed = 00:01:01 . Memory (MB): peak = 1298.910 ; gain = 490.262 ; free physical = 136 ; free virtual = 4413
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:56 ; elapsed = 00:01:01 . Memory (MB): peak = 1298.910 ; gain = 490.262 ; free physical = 136 ; free virtual = 4413
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+--------+------+
+|      |Cell    |Count |
++------+--------+------+
+|1     |LUT1    |     2|
+|2     |LUT2    |     6|
+|3     |LUT3    |     5|
+|4     |LUT4    |     4|
+|5     |LUT5    |    11|
+|6     |LUT6    |     7|
+|7     |MUXCY_L |     3|
+|8     |SRL16E  |     4|
+|9     |XORCY   |     4|
+|10    |FDR     |     1|
+|11    |FDRE    |    87|
++------+--------+------+
+
+Report Instance Areas: 
++------+-------------------------------+--------------+------+
+|      |Instance                       |Module        |Cells |
++------+-------------------------------+--------------+------+
+|1     |top                            |              |   134|
+|2     |  U0                           |mii_to_rmii   |   134|
+|3     |    \RMII_FIXED.I_RX           |rmii_rx_fixed |    74|
+|4     |      \RX_100_MBPS.I_SRL_FIFO  |SRL_FIFO      |    30|
+|5     |    \RMII_FIXED.I_TX           |rmii_tx_fixed |    25|
++------+-------------------------------+--------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:56 ; elapsed = 00:01:01 . Memory (MB): peak = 1298.910 ; gain = 490.262 ; free physical = 135 ; free virtual = 4413
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:41 ; elapsed = 00:00:43 . Memory (MB): peak = 1298.910 ; gain = 63.293 ; free physical = 134 ; free virtual = 4412
+Synthesis Optimization Complete : Time (s): cpu = 00:00:56 ; elapsed = 00:01:01 . Memory (MB): peak = 1298.910 ; gain = 490.262 ; free physical = 134 ; free virtual = 4412
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 8 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_0_ooc.xdc] for cell 'U0'
+Finished Parsing XDC File [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_0_ooc.xdc] for cell 'U0'
+Parsing XDC File [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_0_board.xdc] for cell 'U0'
+Finished Parsing XDC File [/home/leo/cpu/svn4/trunk/xci/mii_to_rmii/mii_to_rmii_0_board.xdc] for cell 'U0'
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 2 instances were transformed.
+  (MUXCY,XORCY) => CARRY4: 1 instances
+  FDR => FDRE: 1 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+65 Infos, 6 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:55 ; elapsed = 00:01:00 . Memory (MB): peak = 1298.910 ; gain = 381.742 ; free physical = 107 ; free virtual = 4410
+INFO: [Coretcl 2-1174] Renamed 4 cell refs.
+report_utilization: Time (s): cpu = 00:00:00.24 ; elapsed = 00:00:00.45 . Memory (MB): peak = 1330.922 ; gain = 0.000 ; free physical = 126 ; free virtual = 4404
+INFO: [Common 17-206] Exiting Vivado at Tue May 31 22:09:08 2016...

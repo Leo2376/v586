@@ -1,0 +1,588 @@
+module biu32_axi(
+rstn,clk, 
+write_req, write_ack, write_data, write_sz, write_msk,
+read_req , read_ack , read_datas , read_sz,
+Daddr,
+code_req , code_ack , code_data , code_addr,
+code_wreq, code_wack, code_wdata,
+readio_req, writeio_req, readio_ack, writeio_ack,
+writeio_data, readio_data, io_add,
+
+// AXI4 32 BIT BUS
+axi_AW, axi_AWVALID, axi_AWREADY,  axi_AWBURST, axi_AWLEN , axi_AWSIZE,
+axi_W, axi_WVALID, axi_WREADY, axi_WSTRB, axi_WLAST,
+axi_AR, axi_ARVALID, axi_ARREADY, axi_ARBURST, axi_ARLEN, axi_ARSIZE,
+axi_R, axi_RVALID, axi_RREADY, axi_RLAST,
+// AXI4 PERIPH IOBUS 32 BIT BUS ( IN FACT ONLY 8 LSB USED)
+axi_io_AW, axi_io_AWVALID, axi_io_AWREADY,  axi_io_AWBURST, axi_io_AWLEN , axi_io_AWSIZE,
+axi_io_W, axi_io_WVALID, axi_io_WREADY, axi_io_WSTRB, axi_io_WLAST,
+axi_io_AR, axi_io_ARVALID, axi_io_ARREADY, axi_io_ARBURST, axi_io_ARLEN, axi_io_ARSIZE,
+axi_io_R, axi_io_RVALID, axi_io_RREADY, axi_io_RLAST,
+
+busy, debug
+);
+
+//ports
+input       clk,rstn,write_req,read_req,code_req,code_wreq;
+input [1:0] write_sz,read_sz;
+output reg  code_wack;
+output      write_ack;
+output      read_ack,code_ack;
+input       [31:0] code_wdata,write_data,Daddr,code_addr;
+output      [31:0] read_datas;
+output reg [127:0] code_data;
+output reg  [31:0] readio_data;
+input       [31:0] writeio_data;
+output reg  readio_ack,writeio_ack;
+input       readio_req,writeio_req;
+input       [31:0] io_add;
+input        [3:0] write_msk;
+// axi bus
+output reg [31:0] axi_AW, axi_AR;
+output reg 	  axi_AWVALID,axi_ARVALID,axi_WVALID,axi_RREADY,axi_WLAST;
+input      	  axi_AWREADY,axi_ARREADY,axi_WREADY,axi_RVALID,axi_RLAST;
+input      [31:0] axi_R;
+output reg [31:0] axi_W;
+output reg  [3:0] axi_WSTRB;
+output reg  [1:0] axi_ARBURST,axi_AWBURST;
+output reg  [7:0] axi_ARLEN, axi_AWLEN;
+output reg  [2:0] axi_ARSIZE, axi_AWSIZE;
+
+// axi_io bus
+output reg [31:0] axi_io_AW, axi_io_AR;
+output reg 	  axi_io_AWVALID,axi_io_ARVALID,axi_io_WVALID,axi_io_RREADY,axi_io_WLAST;
+input      	  axi_io_AWREADY,axi_io_ARREADY,axi_io_WREADY,axi_io_RVALID,axi_io_RLAST;
+input      [31:0] axi_io_R;
+output reg [31:0] axi_io_W;
+output      [3:0] axi_io_WSTRB;
+output      [1:0] axi_io_ARBURST,axi_io_AWBURST;
+output      [7:0] axi_io_ARLEN, axi_io_AWLEN;
+output      [2:0] axi_io_ARSIZE, axi_io_AWSIZE;
+
+output            busy;
+output      [4:0] debug;
+
+// internal wires
+reg [31:0] read_data;
+reg [1:0] code2;
+wire [31:0] A32 = {Daddr[31:2],2'b0};
+reg   [1:0] A2;
+reg  [31:0] write_dataf;
+wire [31:0] A = Daddr;
+reg          read_ack_slow,code_ack_slow;
+reg    [4:0] fsm;
+reg          wrint_ack,fsmz;
+reg    [4:0] burst_idx;
+reg          had_add_rdy;
+reg    [1:0] read_szf,write_szf;
+reg          abort;
+reg          wf,rf;
+
+// cache wires
+reg  [31:0] cacheD;
+wire [10:0] cacheA;
+reg   [2:0] cacheNX;
+reg         cacheWEN;
+reg  [31:0] tag1,tag2,tag3,tag4,tag5,tag6,tag7,tag8;
+reg  [255:0] cacheVALID1,cacheVALID2,cacheVALID3,cacheVALID4,cacheVALID5,cacheVALID6,cacheVALID7,cacheVALID8;
+wire  [7:0] cacheTAGhit;
+reg  [31:0] Ac;
+reg         rsc,wsc,rs8;
+wire [31:0] cacheQ;
+wire  [2:0] cacheOFS;
+reg   [2:0] cacheOFS_f;
+
+assign debug = fsm;
+
+assign read_datas = (fsm != 5'b01111) ? read_data :
+                    (Ac[1:0]==2'b00)  ? cacheQ :
+                    (Ac[1:0]==2'b01)  ? {24'b0,cacheQ[15:8]} :
+                    (Ac[1:0]==2'b10)  ? {24'b0,cacheQ[23:16]} :
+                                        {24'b0,cacheQ[31:24]} ;
+
+assign code_ack = code_ack_slow;
+assign read_ack = read_ack_slow;
+assign write_ack = wrint_ack ;
+assign busy = (fsm !=0 ) ? (code_req|read_req|write_req|code_wreq) : 1'b0;
+
+always @(posedge clk or negedge rstn) 
+if (~rstn) fsmz        <= 0; else if (fsm == 0) fsmz <= 1; else fsmz <= 0;
+
+
+
+datacache datacache1 (
+.clk(clk),
+.WEN(cacheWEN),
+.A(cacheA),
+.D(cacheD),
+.Q(cacheQ)
+);
+
+always @(posedge clk or negedge rstn) if (rstn == 0) cacheOFS_f <=0; else cacheOFS_f <=cacheOFS;
+
+assign cacheOFS = (tag1[31:10] == Ac[31:10]) ? 3'b000 :
+                  (tag2[31:10] == Ac[31:10]) ? 3'b001 :
+                  (tag3[31:10] == Ac[31:10]) ? 3'b010 :
+                  (tag4[31:10] == Ac[31:10]) ? 3'b011 :
+                  (tag5[31:10] == Ac[31:10]) ? 3'b100 :
+                  (tag6[31:10] == Ac[31:10]) ? 3'b101 :
+                  (tag7[31:10] == Ac[31:10]) ? 3'b110 :
+                  (tag8[31:10] == Ac[31:10]) ? 3'b111 : 0;
+
+assign cacheA = {cacheOFS,Ac[9:2]};
+assign cacheTAGhit[0] = (tag1[31:10] == Ac[31:10]) ? 1:0;
+assign cacheTAGhit[1] = (tag2[31:10] == Ac[31:10]) ? 1:0;
+assign cacheTAGhit[2] = (tag3[31:10] == Ac[31:10]) ? 1:0;
+assign cacheTAGhit[3] = (tag4[31:10] == Ac[31:10]) ? 1:0;
+assign cacheTAGhit[4] = (tag5[31:10] == Ac[31:10]) ? 1:0;
+assign cacheTAGhit[5] = (tag6[31:10] == Ac[31:10]) ? 1:0;
+assign cacheTAGhit[6] = (tag7[31:10] == Ac[31:10]) ? 1:0;
+assign cacheTAGhit[7] = (tag8[31:10] == Ac[31:10]) ? 1:0;
+
+ 
+// cache process
+always @(posedge clk or negedge rstn) 
+if (~rstn)
+ begin {tag1,tag2,tag3,tag4,tag5,tag6,tag7,tag8} <=0; 
+ cacheWEN <=1; cacheD <=0; 
+ cacheVALID1 <=0; cacheVALID2 <=0; cacheVALID3 <=0; cacheVALID4 <=0; 
+ cacheVALID5 <=0; cacheVALID6 <=0; cacheVALID7 <=0; cacheVALID8 <=0;
+ cacheNX <=0; Ac <= 0; rsc <=0; rs8 <= 0; wsc <=0; 
+ end
+else 
+ begin
+  if (( ((write_req&~wrint_ack)==1) || ((read_req&~read_ack_slow)==1) )  && (fsm == 0) )
+     begin
+      Ac <= A;
+      if (write_sz ==2'b10) wsc <=1; else wsc <=0;
+      if (read_sz  ==2'b10) rsc <=1; else rsc <=0;
+      if (read_sz  ==2'b00) rs8 <=1; else rs8 <=0;
+     end      
+ 
+  if ((fsm ==5'b00101) && (cacheTAGhit[0]==1) && (wsc == 1) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <= write_dataf; cacheVALID1 <= cacheVALID1 |  (1 << Ac[9:2]); end else  // backup write location
+  if ((fsm ==5'b00101) && (cacheTAGhit[0]==1) && (wsc == 0) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <=32'hffffffff; cacheVALID1 <= cacheVALID1 & ~(1 << Ac[9:2]); end else  // devalidate
+  if ((fsm ==5'b00101) && (cacheTAGhit[0]==1)               && (Ac[1:0]!=0)) begin                                     cacheVALID1 <= cacheVALID1 & ~(3 << Ac[9:2]); end else  // devalidate
+  if ((fsm ==5'b11111) && (cacheTAGhit[0]==1) && (rsc == 1) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <= read_data;   cacheVALID1 <= cacheVALID1 |  (1 << Ac[9:2]); end else  // update cache with new entry
+  if ((fsm ==5'b11111) && (cacheTAGhit[0]==1) && (rs8 == 1)                ) begin cacheWEN<=0; cacheD <= axi_R   ;    cacheVALID1 <= cacheVALID1 |  (1 << Ac[9:2]); end else  // update cache with new entry
+  
+  if ((fsm ==5'b00101) && (cacheTAGhit[1]==1) && (wsc == 1) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <= write_dataf; cacheVALID2 <= cacheVALID2 |  (1 << Ac[9:2]); end else  // backup write location
+  if ((fsm ==5'b00101) && (cacheTAGhit[1]==1) && (wsc == 0) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <=32'hffffffff; cacheVALID2 <= cacheVALID2 & ~(1 << Ac[9:2]); end else  // devalidate
+  if ((fsm ==5'b00101) && (cacheTAGhit[1]==1)               && (Ac[1:0]!=0)) begin              		       cacheVALID2 <= cacheVALID2 & ~(3 << Ac[9:2]); end else  // devalidate
+  if ((fsm ==5'b11111) && (cacheTAGhit[1]==1) && (rsc == 1) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <= read_data;   cacheVALID2 <= cacheVALID2 |  (1 << Ac[9:2]); end else  // update cache with new entry
+  if ((fsm ==5'b11111) && (cacheTAGhit[1]==1) && (rs8 == 1)                ) begin cacheWEN<=0; cacheD <= axi_R   ;    cacheVALID2 <= cacheVALID2 |  (1 << Ac[9:2]); end else  // update cache with new entry
+
+  if ((fsm ==5'b00101) && (cacheTAGhit[2]==1) && (wsc == 1) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <= write_dataf; cacheVALID3 <= cacheVALID3 |  (1 << Ac[9:2]); end else  // backup write location
+  if ((fsm ==5'b00101) && (cacheTAGhit[2]==1) && (wsc == 0) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <=32'hffffffff; cacheVALID3 <= cacheVALID3 & ~(1 << Ac[9:2]); end else  // devalidate
+  if ((fsm ==5'b00101) && (cacheTAGhit[2]==1)               && (Ac[1:0]!=0)) begin              		       cacheVALID3 <= cacheVALID3 & ~(3 << Ac[9:2]); end else  // devalidate
+  if ((fsm ==5'b11111) && (cacheTAGhit[2]==1) && (rsc == 1) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <= read_data;   cacheVALID3 <= cacheVALID3 |  (1 << Ac[9:2]); end else  // update cache with new entry
+  if ((fsm ==5'b11111) && (cacheTAGhit[2]==1) && (rs8 == 1)                ) begin cacheWEN<=0; cacheD <= axi_R   ;    cacheVALID3 <= cacheVALID3 |  (1 << Ac[9:2]); end else  // update cache with new entry
+
+  if ((fsm ==5'b00101) && (cacheTAGhit[3]==1) && (wsc == 1) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <= write_dataf; cacheVALID4 <= cacheVALID4 |  (1 << Ac[9:2]); end else  // backup write location
+  if ((fsm ==5'b00101) && (cacheTAGhit[3]==1) && (wsc == 0) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <=32'hffffffff; cacheVALID4 <= cacheVALID4 & ~(1 << Ac[9:2]); end else  // devalidate
+  if ((fsm ==5'b00101) && (cacheTAGhit[3]==1)               && (Ac[1:0]!=0)) begin              		       cacheVALID4 <= cacheVALID4 & ~(3 << Ac[9:2]); end else  // devalidate
+  if ((fsm ==5'b11111) && (cacheTAGhit[3]==1) && (rsc == 1) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <= read_data;   cacheVALID4 <= cacheVALID4 |  (1 << Ac[9:2]); end else  // update cache with new entry
+  if ((fsm ==5'b11111) && (cacheTAGhit[3]==1) && (rs8 == 1)                ) begin cacheWEN<=0; cacheD <= axi_R   ;    cacheVALID4 <= cacheVALID4 |  (1 << Ac[9:2]); end else  // update cache with new entry
+  
+  if ((fsm ==5'b00101) && (cacheTAGhit[4]==1) && (wsc == 1) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <= write_dataf; cacheVALID5 <= cacheVALID5 |  (1 << Ac[9:2]); end else  // backup write location
+  if ((fsm ==5'b00101) && (cacheTAGhit[4]==1) && (wsc == 0) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <=32'hffffffff; cacheVALID5 <= cacheVALID5 & ~(1 << Ac[9:2]); end else  // devalidate
+  if ((fsm ==5'b00101) && (cacheTAGhit[4]==1)               && (Ac[1:0]!=0)) begin              		       cacheVALID5 <= cacheVALID5 & ~(3 << Ac[9:2]); end else  // devalidate
+  if ((fsm ==5'b11111) && (cacheTAGhit[4]==1) && (rsc == 1) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <= read_data;   cacheVALID5 <= cacheVALID5 |  (1 << Ac[9:2]); end else  // update cache with new entry
+  if ((fsm ==5'b11111) && (cacheTAGhit[4]==1) && (rs8 == 1)                ) begin cacheWEN<=0; cacheD <= axi_R   ;    cacheVALID5 <= cacheVALID5 |  (1 << Ac[9:2]); end else  // update cache with new entry
+  
+  if ((fsm ==5'b00101) && (cacheTAGhit[5]==1) && (wsc == 1) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <= write_dataf; cacheVALID6 <= cacheVALID6 |  (1 << Ac[9:2]); end else  // backup write location
+  if ((fsm ==5'b00101) && (cacheTAGhit[5]==1) && (wsc == 0) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <=32'hffffffff; cacheVALID6 <= cacheVALID6 & ~(1 << Ac[9:2]); end else  // devalidate
+  if ((fsm ==5'b00101) && (cacheTAGhit[5]==1)               && (Ac[1:0]!=0)) begin              		       cacheVALID6 <= cacheVALID6 & ~(3 << Ac[9:2]); end else  // devalidate
+  if ((fsm ==5'b11111) && (cacheTAGhit[5]==1) && (rsc == 1) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <= read_data;   cacheVALID6 <= cacheVALID6 |  (1 << Ac[9:2]); end else  // update cache with new entry
+  if ((fsm ==5'b11111) && (cacheTAGhit[5]==1) && (rs8 == 1)                ) begin cacheWEN<=0; cacheD <= axi_R   ;    cacheVALID6 <= cacheVALID6 |  (1 << Ac[9:2]); end else  // update cache with new entry
+  
+  if ((fsm ==5'b00101) && (cacheTAGhit[6]==1) && (wsc == 1) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <= write_dataf; cacheVALID7 <= cacheVALID7 |  (1 << Ac[9:2]); end else  // backup write location
+  if ((fsm ==5'b00101) && (cacheTAGhit[6]==1) && (wsc == 0) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <=32'hffffffff; cacheVALID7 <= cacheVALID7 & ~(1 << Ac[9:2]); end else  // devalidate
+  if ((fsm ==5'b00101) && (cacheTAGhit[6]==1)               && (Ac[1:0]!=0)) begin              		       cacheVALID7 <= cacheVALID7 & ~(3 << Ac[9:2]); end else  // devalidate
+  if ((fsm ==5'b11111) && (cacheTAGhit[6]==1) && (rsc == 1) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <= read_data;   cacheVALID7 <= cacheVALID7 |  (1 << Ac[9:2]); end else  // update cache with new entry
+  if ((fsm ==5'b11111) && (cacheTAGhit[6]==1) && (rs8 == 1)                ) begin cacheWEN<=0; cacheD <= axi_R   ;    cacheVALID7 <= cacheVALID7 |  (1 << Ac[9:2]); end else  // update cache with new entry
+  
+  if ((fsm ==5'b00101) && (cacheTAGhit[7]==1) && (wsc == 1) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <= write_dataf; cacheVALID8 <= cacheVALID8 |  (1 << Ac[9:2]); end else  // backup write location
+  if ((fsm ==5'b00101) && (cacheTAGhit[7]==1) && (wsc == 0) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <=32'hffffffff; cacheVALID8 <= cacheVALID8 & ~(1 << Ac[9:2]); end else  // devalidate
+  if ((fsm ==5'b00101) && (cacheTAGhit[7]==1)               && (Ac[1:0]!=0)) begin              		       cacheVALID8 <= cacheVALID8 & ~(3 << Ac[9:2]); end else  // devalidate
+  if ((fsm ==5'b11111) && (cacheTAGhit[7]==1) && (rsc == 1) && (Ac[1:0]==0)) begin cacheWEN<=0; cacheD <= read_data;   cacheVALID8 <= cacheVALID8 |  (1 << Ac[9:2]); end else  // update cache with new entry
+  if ((fsm ==5'b11111) && (cacheTAGhit[7]==1) && (rs8 == 1)                ) begin cacheWEN<=0; cacheD <= axi_R   ;    cacheVALID8 <= cacheVALID8 |  (1 << Ac[9:2]); end else  // update cache with new entry
+  
+  if ((fsm ==5'b11111) && (cacheTAGhit==0) && ((rsc == 1)|(rs8 == 1)) && (cacheNX == 0)) begin tag1 <= {Ac[31:10],10'h000}; cacheVALID1 <=0; cacheNX <=1; cacheWEN <=1; end else // update tag1 in case of miss
+  if ((fsm ==5'b11111) && (cacheTAGhit==0) && ((rsc == 1)|(rs8 == 1)) && (cacheNX == 1)) begin tag2 <= {Ac[31:10],10'h000}; cacheVALID2 <=0; cacheNX <=2; cacheWEN <=1; end else // update tag2 in case of miss
+  if ((fsm ==5'b11111) && (cacheTAGhit==0) && ((rsc == 1)|(rs8 == 1)) && (cacheNX == 2)) begin tag3 <= {Ac[31:10],10'h000}; cacheVALID3 <=0; cacheNX <=3; cacheWEN <=1; end else // update tag3 in case of miss
+  if ((fsm ==5'b11111) && (cacheTAGhit==0) && ((rsc == 1)|(rs8 == 1)) && (cacheNX == 3)) begin tag4 <= {Ac[31:10],10'h000}; cacheVALID4 <=0; cacheNX <=4; cacheWEN <=1; end else // update tag4 in case of miss
+  if ((fsm ==5'b11111) && (cacheTAGhit==0) && ((rsc == 1)|(rs8 == 1)) && (cacheNX == 4)) begin tag5 <= {Ac[31:10],10'h000}; cacheVALID5 <=0; cacheNX <=5; cacheWEN <=1; end else // update tag5 in case of miss
+  if ((fsm ==5'b11111) && (cacheTAGhit==0) && ((rsc == 1)|(rs8 == 1)) && (cacheNX == 5)) begin tag6 <= {Ac[31:10],10'h000}; cacheVALID6 <=0; cacheNX <=6; cacheWEN <=1; end else // update tag6 in case of miss
+  if ((fsm ==5'b11111) && (cacheTAGhit==0) && ((rsc == 1)|(rs8 == 1)) && (cacheNX == 6)) begin tag7 <= {Ac[31:10],10'h000}; cacheVALID7 <=0; cacheNX <=7; cacheWEN <=1; end else // update tag7 in case of miss
+  if ((fsm ==5'b11111) && (cacheTAGhit==0) && ((rsc == 1)|(rs8 == 1)) && (cacheNX == 7)) begin tag8 <= {Ac[31:10],10'h000}; cacheVALID8 <=0; cacheNX <=0; cacheWEN <=1; end else // update tag8 in case of miss
+  // nothing 
+   begin cacheWEN<=1; end
+end
+
+
+
+always @(posedge clk or negedge rstn) 
+if (~rstn)
+ begin 
+   abort         <=0;                   // if code_req is =0 during prefetch transaction then it is an abort , most likely issued from a jump or decode pipe interruption. 
+   A2            <=0;                   // ADDRESS LSB
+   axi_AW        <= 0; axi_AR      <=0; // AXI ADDRESS OUTPUTS
+   axi_AWVALID   <= 0; axi_ARVALID <=0; // AXI ADRESS VALID OUTPUTS
+   axi_WVALID    <= 0; axi_RREADY  <=0; // AXI R/W CHANNEL REQUESTS
+   axi_W         <= 0;                  // AXI DATA TO WRITE 
+   axi_WSTRB     <= 0;                  // AXI DATA TO WRITE STROBE
+   axi_ARSIZE    <= 3'h2;               // DEFAULT SIZE is 2^2 = 4 bytes , SO 32 bits
+   axi_ARLEN     <= 8'h0;               // DEFAULT BURST LENGTH is 1 , SO NO BURST
+   axi_ARBURST   <= 2'h1;               // DEFAULT BURST TYPE   is INCREMENT NO WRAP   
+   axi_AWSIZE    <= 3'h2;               // DEFAULT SIZE is 2^2 = 4 bytes , SO 32 bits
+   axi_AWLEN     <= 8'h0;               // DEFAULT BURST LENGTH is 1 , SO NO BURST
+   axi_AWBURST   <= 2'h1;               // DEFAULT BURST TYPE   is INCREMENT NO WRAP  
+   axi_WLAST     <= 0;                  // ANYWAY WE DONT BURST IN WRITE MODE 
+   fsm           <= 0; 
+   read_data     <= 0;
+   read_ack_slow <= 0; wrint_ack <= 0; // RETURN TO CORE HANDSHAKE
+   code_ack_slow <= 0; code_wack <= 0; // RETURN TO CORE HANDSHAKE
+   write_dataf   <= 0;
+   had_add_rdy   <= 0;
+   read_szf      <= 0;
+   write_szf     <= 0;
+ end
+else
+casex ({fsm,(write_req&~wrint_ack),(read_req&~read_ack_slow),(code_req&~code_ack_slow),(code_wreq&~code_wack)})
+9'b00000_0000: 
+        begin 
+         abort         <= 0;
+         fsm           <= 0; 
+	 wrint_ack     <= 0; 
+         read_ack_slow <= 0; 
+         code_ack_slow <= 0; 
+         code_wack     <= 0;
+	 had_add_rdy   <= 0;
+         axi_ARVALID   <= 0; 
+	 axi_AWVALID   <= 0; 
+	 axi_RREADY    <= 0; 
+	 axi_WVALID    <= 0; 
+	 axi_WSTRB     <= 0; 
+	 axi_WLAST     <= 0; 
+	 axi_AWLEN     <= 0;
+	 axi_ARLEN     <= 0;
+	 axi_AW        <= A32; 
+	 axi_AR        <= A32; 
+	 axi_W         <= write_data; 
+	 axi_AWBURST   <= 2'h1;
+         axi_ARBURST   <= 2'h1;         
+	 axi_AWSIZE    <= 2'h2;
+         axi_ARSIZE    <= 2'h2;         
+	 A2            <= Daddr[1:0];
+	end
+
+9'b11111_xxxx: 
+        begin 
+	 abort         <= 0;
+         fsm           <= 0; 
+	 wrint_ack     <= 0; 
+         read_ack_slow <= 0; 
+         code_ack_slow <= 0; 
+         code_wack     <= 0;
+	 had_add_rdy   <= 0;
+         axi_ARVALID   <= 0; 
+	 axi_AWVALID   <= 0; 
+	 axi_RREADY    <= 0; 
+	 axi_WVALID    <= 0; 
+	 axi_WSTRB     <= 0; 
+	 axi_WLAST     <= 0; 
+	 axi_AWLEN     <= 0;
+	 axi_ARLEN     <= 0;
+	 axi_AW        <= A32; 
+	 axi_AR        <= A32; 
+	 axi_W         <= write_data; 
+	 axi_AWBURST   <= 2'h1;
+         axi_ARBURST   <= 2'h1;         
+	 axi_AWSIZE    <= 2'h2;
+         axi_ARSIZE    <= 2'h2;         
+	 A2            <= Daddr[1:0];
+	end
+
+9'b11110_xxxx: 
+        begin 
+	 abort         <= 0;
+         fsm           <= 0; 
+	 wrint_ack     <= 0; 
+         read_ack_slow <= 0; 
+         code_ack_slow <= 0; 
+         code_wack     <= 0;
+	 had_add_rdy   <= 0;
+         axi_ARVALID   <= 0; 
+	 axi_AWVALID   <= 0; 
+	 axi_RREADY    <= 0; 
+	 axi_WVALID    <= 0; 
+	 axi_WSTRB     <= 0; 
+	 axi_WLAST     <= 0; 
+	 axi_AWLEN     <= 0;
+	 axi_ARLEN     <= 0;
+	 axi_AW        <= A32; 
+	 axi_AR        <= A32; 
+	 axi_W         <= write_data; 
+	 axi_AWBURST   <= 2'h1;
+         axi_ARBURST   <= 2'h1;         
+	 axi_AWSIZE    <= 2'h2;
+         axi_ARSIZE    <= 2'h2;         
+	 A2            <= Daddr[1:0];
+	end
+	
+/////////////////////////////////
+// Writes
+/////////////////////////////////
+
+9'b00000_10xx :  begin 
+                  abort         <= 0;
+		  read_ack_slow <= 0; 
+		  code_ack_slow <= 0; 
+		  code_wack     <= 0;
+		  wrint_ack     <= 0; 
+		  axi_AWVALID   <= 1; 
+		  axi_WVALID    <= 1; 
+                  axi_AW        <= A32; 
+		  A2            <= Daddr[1:0]; 
+		  write_dataf   <= write_data;
+		  write_szf     <= write_sz;
+                  if ((write_sz == 2'b10) && (A[1:0]==2'b00)) begin axi_WSTRB<=4'b1111; axi_AWLEN<=0; axi_WLAST <=1; fsm<=5'b00101; axi_W<= write_data;		  end else // Fast : 32bits aligned		    
+		  if ((write_sz == 2'b10) && (A[1:0]==2'b01)) begin axi_WSTRB<=4'b1110; axi_AWLEN<=1;                fsm<=5'b00001; axi_W<={write_data[23:0],8'b0};	  end else // Partial : 32bits unaligned	 
+		  if ((write_sz == 2'b10) && (A[1:0]==2'b10)) begin axi_WSTRB<=4'b1100; axi_AWLEN<=1;                fsm<=5'b00001; axi_W<={write_data[15:0],16'b0};    end else // Partial : 32bits unaligned    
+		  if ((write_sz == 2'b10) && (A[1:0]==2'b11)) begin axi_WSTRB<=4'b1000; axi_AWLEN<=1;                fsm<=5'b00001; axi_W<={write_data[ 7:0],24'b0};    end else // Partial : 32bits unaligned    
+		  if ((write_sz == 2'b01) && (A[1:0]==2'b00)) begin axi_WSTRB<=4'b0011; axi_AWLEN<=0; axi_WLAST <=1; fsm<=5'b00101; axi_W<={16'b0,write_data[15:0]};    end else // Fast : 16bits aligned		   
+		  if ((write_sz == 2'b01) && (A[1:0]==2'b01)) begin axi_WSTRB<=4'b0110; axi_AWLEN<=0; axi_WLAST <=1; fsm<=5'b00101; axi_W<={8'b0,write_data[15:0],8'b0};end else // Fast : 16bits aligned		   
+		  if ((write_sz == 2'b01) && (A[1:0]==2'b10)) begin axi_WSTRB<=4'b1100; axi_AWLEN<=0; axi_WLAST <=1; fsm<=5'b00101; axi_W<={write_data[15:0],16'b0};    end else // Fast : 16bits aligned		   
+		  if ((write_sz == 2'b01) && (A[1:0]==2'b11)) begin axi_WSTRB<=4'b1000; axi_AWLEN<=1;                fsm<=5'b00001; axi_W<={write_data[7:0],24'b0};	  end else // Half : 16bits overlap		   
+		  begin 
+		   fsm <= 5'b00101; axi_AWLEN <= 0; axi_WLAST<=1;
+		   if (A[1:0] == 2'b00) begin axi_WSTRB<=4'b0001; axi_W<={24'b0,write_data[7:0]}      ; end else 
+		   if (A[1:0] == 2'b01) begin axi_WSTRB<=4'b0010; axi_W<={16'b0,write_data[7:0], 8'b0}; end else
+		   if (A[1:0] == 2'b10) begin axi_WSTRB<=4'b0100; axi_W<={ 8'b0,write_data[7:0],16'b0}; end else
+		   if (A[1:0] == 2'b11) begin axi_WSTRB<=4'b1000; axi_W<={	write_data[7:0],24'b0}; end		    
+		  end // else 8 bit write
+		end
+
+9'b00001_xxxx : begin
+		wrint_ack     <= 0;
+                if (axi_AWREADY == 1) axi_AWVALID <= 0; 
+                if((axi_WREADY  == 1) && (axi_WVALID == 1))
+		 begin 
+                  fsm <= 5'b00101; axi_WLAST <=1;
+                  if ((write_szf == 2'b01) && (A2==2'b11)) begin axi_WSTRB<=4'b0001; axi_W<={24'b0,write_dataf[15: 8]}; end else // Half : 16bits overlap  	 
+		  if ((write_szf == 2'b10) && (A2==2'b01)) begin axi_WSTRB<=4'b0001; axi_W<={24'b0,write_dataf[31:24]}; end else // Half : 32bits overlap  	 
+		  if ((write_szf == 2'b10) && (A2==2'b10)) begin axi_WSTRB<=4'b0011; axi_W<={16'b0,write_dataf[31:16]}; end else // Half : 32bits overlap  	 
+		  if ((write_szf == 2'b10) && (A2==2'b11)) begin axi_WSTRB<=4'b0111; axi_W<={8'b0 ,write_dataf[31: 8]}; end      // Half : 32bits overlap
+		 end
+		end
+
+9'b00101_xxxx : begin
+                if (axi_AWREADY == 1) axi_AWVALID <= 0; 
+                if((axi_WREADY  == 1) && (axi_WVALID == 1))
+                   begin 
+		     wrint_ack   <= 1;
+		     fsm         <= 5'b11110; 
+		     axi_AWLEN   <= 0; 
+		     axi_AWVALID <= 0; 
+		     axi_WVALID  <= 0; 
+		     axi_WSTRB   <= 0; 
+		     axi_AW      <= A32; 
+		     axi_WLAST   <= 0; 
+		   end // Half : 32bits overlap  	      
+                end
+		
+/////////////////////////////////////		
+// Reads
+/////////////////////////////////////
+
+9'b00000_01xx : begin
+		  begin
+            abort	      <= 0;
+		    wrint_ack	  <= 0; 
+		    read_ack_slow <= 0; 
+		    code_ack_slow <= 0; 
+		    code_wack	  <= 0;
+            axi_AR	      <= A32;
+		    A2  	      <= Daddr[1:0];
+		    fsm 	      <= 5'b01000; 
+		    axi_ARVALID   <= 1;
+		    axi_RREADY    <= 0;
+		    read_szf	  <= read_sz;
+	            if ((read_sz == 2'b10) && (Daddr[1:0]==2'b01)) axi_ARLEN <= 8'h1; else // Half : 32 bit overlap		   
+	            if ((read_sz == 2'b10) && (Daddr[1:0]==2'b10)) axi_ARLEN <= 8'h1; else // Half : 32 bit overlap		      
+	            if ((read_sz == 2'b10) && (Daddr[1:0]==2'b11)) axi_ARLEN <= 8'h1; else // Half : 32 bit overlap		  
+	            if ((read_sz == 2'b01) && (Daddr[1:0]==2'b11)) axi_ARLEN <= 8'h1; else // Half : 16 bit overlap
+		                                                   axi_ARLEN <= 8'h0;
+		    end 
+                end
+		 
+9'b01000_xxxx : begin
+               if (read_req == 0) abort <= 1;
+               if (axi_ARREADY == 1) begin axi_ARVALID <= 0; axi_RREADY <= 1; end
+               if((axi_RVALID  == 1) && (axi_RREADY == 1))
+                begin 
+                if ((read_szf == 2'b10) && (A2==2'b00)) begin fsm<=5'b11111; read_data[31:0]<=axi_R	  ; if (read_req) read_ack_slow<=~abort; axi_RREADY<=0; end else // Fast : 32 bit aligned 	       
+	        if ((read_szf == 2'b10) && (A2==2'b01)) begin fsm<=5'b01001; read_data[23:0]<=axi_R[31:8] ;                                                     end else // Half : 32 bit overlap		    
+	        if ((read_szf == 2'b10) && (A2==2'b10)) begin fsm<=5'b01001; read_data[15:0]<=axi_R[31:16];                                                     end else // Half : 32 bit overlap		      
+	        if ((read_szf == 2'b10) && (A2==2'b11)) begin fsm<=5'b01001; read_data[ 7:0]<=axi_R[31:24];                                                     end else // Half : 32 bit overlap		  
+	        if ((read_szf == 2'b01) && (A2==2'b00)) begin fsm<=5'b11111; read_data[15:0]<=axi_R[15: 0]; if (read_req) read_ack_slow<=~abort; axi_RREADY<=0; end else // Fast : 16 bit aligned		   
+	        if ((read_szf == 2'b01) && (A2==2'b01)) begin fsm<=5'b11111; read_data[15:0]<=axi_R[23: 8]; if (read_req) read_ack_slow<=~abort; axi_RREADY<=0; end else // Fast : 16 bit aligned  	     
+	        if ((read_szf == 2'b01) && (A2==2'b10)) begin fsm<=5'b11111; read_data[15:0]<=axi_R[31:16]; if (read_req) read_ack_slow<=~abort; axi_RREADY<=0; end else // Fast : 16 bit aligned  	    
+	        if ((read_szf == 2'b01) && (A2==2'b11)) begin fsm<=5'b01001; read_data[ 7:0]<=axi_R[31:24];                                                     end else // Half : 16 bit overlap		   
+		 begin        
+		  if (read_req) read_ack_slow <=~abort;
+		  fsm           <= 5'b11111; 
+		  axi_RREADY    <= 0;
+		  if (A2 == 2'b00 ) read_data[7:0]<=axi_R[ 7: 0] ; else
+	          if (A2 == 2'b01 ) read_data[7:0]<=axi_R[15: 8] ; else
+	          if (A2 == 2'b10 ) read_data[7:0]<=axi_R[23:16] ; else
+	          if (A2 == 2'b11 ) read_data[7:0]<=axi_R[31:24] ;
+		 end
+	        end
+	       end
+				 
+9'b01001_xxxx : begin 
+         if (read_req == 0) abort <= 1;
+         if (axi_ARREADY == 1) begin axi_ARVALID <= 0; axi_RREADY <= 1; end
+         if((axi_RVALID  == 1) && (axi_RREADY == 1))
+		 begin 
+		  axi_RREADY    <= 0; 
+		  axi_ARVALID   <= 0;
+		  if (read_req) read_ack_slow <=~abort;
+		  fsm           <= 5'b11111;
+		  axi_ARLEN     <= 8'h0;
+                  if ((read_szf == 2'b01) && (A2==2'b11)) read_data[15: 8]<=axi_R[ 7:0]; else // Half : 16bits overlap	
+		  if ((read_szf == 2'b10) && (A2==2'b01)) read_data[31:24]<=axi_R[ 7:0]; else // Half : 32bits overlap	  
+		  if ((read_szf == 2'b10) && (A2==2'b10)) read_data[31:16]<=axi_R[15:0]; else // Half : 32bits overlap	  
+		  if ((read_szf == 2'b10) && (A2==2'b11)) read_data[31: 8]<=axi_R[23:0];      // Half : 32bits overlap	  
+		 end
+		end
+
+//////////////////////////////////////////////
+// Read Code = pre-fetch
+//////////////////////////////////////////////
+
+9'b00000_001x : begin
+		 wrint_ack     <= 0; 
+		 read_ack_slow <= 0; 
+		 code_ack_slow <= 0; 
+		 code_wack     <= 0;
+                 code2         <=  code_addr[ 1:0]; 
+                 axi_AR        <= {code_addr[31:2],2'b0}; 
+                 axi_ARVALID   <= 1; 
+                 axi_RREADY    <= 1; 
+                 burst_idx     <= 0;
+		 abort         <= 0;
+		 if (code_addr[1:0]==2'b00) axi_ARLEN <= 8'h3;     else axi_ARLEN <= 8'h0;
+		 if (code_addr[1:0]==2'b00) fsm       <= 5'b10100; else fsm       <= 5'b10000;
+		end
+		
+9'b10000_xxxx : 
+        begin
+           if (code_req == 0) abort <= 1;
+           if (axi_ARREADY == 1) axi_ARVALID <= 0;
+           if (axi_RVALID == 1)
+		   begin  
+		    fsm           <= 5'b11110;
+		    if ((abort == 0) && (code_req == 1)) code_ack_slow <= 1; 
+		    axi_RREADY    <= 0; 
+                    if (code2[1:0]==2'b01) code_data<={120'h0,axi_R[15: 8]}; else
+                    if (code2[1:0]==2'b10) code_data<={120'h0,axi_R[23:16]}; else
+                    if (code2[1:0]==2'b11) code_data<={120'h0,axi_R[31:24]}; 
+                   end
+	end
+
+9'b10100_xxxx : begin
+                 if (code_req == 0) abort <= 1;
+                 if (axi_ARREADY == 1) axi_ARVALID <= 0;
+                 if (axi_RVALID == 1)
+	          begin 
+	           burst_idx <= burst_idx+1;
+	           if (burst_idx == 0) code_data[ 31:  0]<=axi_R; else
+	           if (burst_idx == 1) code_data[ 63: 32]<=axi_R; else
+	           if (burst_idx == 2) code_data[ 95: 64]<=axi_R; else
+	           if (burst_idx == 3) code_data[127: 96]<=axi_R; 
+		   if (axi_RLAST) 
+		      begin 
+		       fsm<=5'b11110; 
+		       if ((abort == 0) && (code_req == 1)) code_ack_slow <= 1; 
+		       axi_RREADY    <= 0;
+		      end
+	          end
+	        end
+
+/////////////////////////////////////////////////////
+// Write Code = update page dirty from MMU
+/////////////////////////////////////////////////////
+
+9'b00000_0001 : begin 
+		 wrint_ack     <= 0; 
+		 read_ack_slow <= 0; 
+		 code_ack_slow <= 0; 
+		 code_wack     <= 0; 
+                 fsm           <= 5'b10010; 
+		 axi_AW        <= {code_addr[31:2],2'b00}; 
+		 axi_AWVALID   <= 1; 
+		 axi_W         <= {24'b0,code_wdata[ 7: 0]}; 
+		 axi_WVALID    <= 1; 
+		 axi_WSTRB     <= 4'b0001;
+		 axi_WLAST     <= 1; 
+		 axi_AWLEN     <= 0;
+		end
+				
+9'b10010_xxxx : begin
+                 if (axi_AWREADY == 1) axi_AWVALID <= 0;
+                 if (axi_WREADY  == 1) begin code_wack   <= 1; fsm <= 5'b11110; axi_WVALID <=0; end
+		end
+endcase
+
+
+
+always @(posedge clk or negedge rstn) 
+if (~rstn)
+begin
+ writeio_ack <=0;
+ readio_ack <=0;
+ axi_io_AW <=0; 
+ axi_io_AR <=0;
+ axi_io_AWVALID <=0;
+ axi_io_ARVALID <=0;
+ axi_io_WVALID <=0;
+ axi_io_RREADY <=0;
+ axi_io_WLAST <=0;
+ axi_io_W <=0;
+ wf <=0; rf <=0;
+end
+else
+begin
+ wf <= writeio_req; rf <= readio_req;
+ if (readio_ack ==1) readio_ack <= 0; else
+ if (writeio_ack ==1) writeio_ack <= 0; else
+ if ((axi_io_AWVALID ==1) && (axi_io_AWREADY==1)) begin axi_io_WVALID <=1; axi_io_AWVALID <=0; axi_io_WLAST <=1; end else
+ if ((axi_io_WVALID  ==1) && (axi_io_WREADY ==1)) begin axi_io_WVALID <=0; writeio_ack <=1; axi_io_WLAST <=0; end else 
+ if ((axi_io_ARVALID ==1) && (axi_io_ARREADY==1)) begin axi_io_RREADY <=1; axi_io_ARVALID <=0; end else
+ if ((axi_io_RVALID  ==1) && (axi_io_RREADY ==1)) begin axi_io_RREADY <=0; readio_ack <=1; readio_data<= axi_io_R; end else 
+ if ((writeio_req ==1) && (wf == 0))
+  begin
+   axi_io_AW <= {14'b0,io_add[15:0],2'b0};
+   axi_io_AWVALID <=1;
+   axi_io_W <= writeio_data;
+  end
+ else
+ if ((readio_req ==1) &&(rf == 0))
+  begin
+   axi_io_AR <= {14'b0,io_add[15:0],2'b0};
+   axi_io_ARVALID <=1;
+  end
+end
+
+assign axi_io_ARSIZE = 3'h2;
+assign axi_io_AWSIZE = 3'h2;
+assign axi_io_ARLEN =8'h0;
+assign axi_io_AWLEN =8'h0;
+assign axi_io_ARBURST =2'h1;
+assign axi_io_AWBURST =2'h1;
+assign axi_io_WSTRB =4'h1;
+
+
+endmodule

@@ -1,0 +1,65 @@
+Vivado Simulator 2015.2
+Time resolution is 1 fs
+WARNING: file design.txt could not be opened
+ *** Warning: The analog data file design.txt for XADC instance tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.temp_mon_enabled.u_tempmon.xadc_supplied_temperature.XADC_inst was not found. Use the SIM_MONITOR_FILE parameter to specify the analog data file name or use the default name: design.txt.
+
+############# Write Clocks PLLE2_ADV Parameters #############
+
+nCK_PER_CLK      =       2
+CLK_PERIOD       =    5000
+CLKIN1_PERIOD    =   5.000
+DIVCLK_DIVIDE    =       1
+CLKFBOUT_MULT    =       4
+VCO_PERIOD       =  1250.0
+CLKOUT0_DIVIDE_F =       2
+CLKOUT1_DIVIDE   =       4
+CLKOUT2_DIVIDE   =      64
+CLKOUT3_DIVIDE   =       8
+CLKOUT0_PERIOD   =    2500
+CLKOUT1_PERIOD   =    5000
+CLKOUT2_PERIOD   =   80000
+CLKOUT3_PERIOD   =   10000
+CLKOUT4_PERIOD   =   10000
+############################################################
+
+############# MMCME2_ADV Parameters #############
+
+MMCM_MULT_F           =          12
+MMCM_VCO_FREQ (MHz)   = 1200000.000
+MMCM_VCO_PERIOD       = 833.333
+#################################################
+
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : BYTE_LANES_B0 = f BYTE_LANES_B1 = 0 DATA_CTL_B0 = 5 DATA_CTL_B1 = 0
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : HIGHEST_LANE =           4 HIGHEST_LANE_B0 =           4 HIGHEST_LANE_B1 =           0
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : HIGHEST_BANK =           1
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : FREQ_REF_PERIOD         = 2500.00 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : DDR_TCK                 = 5000 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : PO_S2_TAPS_SIZE         = 19.53 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : PO_CIRC_BUF_EARLY       = 1 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : PO_CIRC_BUF_OFFSET      = 2910.50 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : PO_CIRC_BUF_META_ZONE   = 200.00 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : PO_STG2_FINE_INTR_DLY   = 1296.50 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : PO_STG2_COARSE_INTR_DLY = 793.00 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : PO_STG2_INTRINSIC_DELAY = 2089.50 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : PO_CIRC_BUF_DELAY       = 60 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : PO_INTRINSIC_DELAY      = 2089.50 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : PO_DELAY                = 3261.38 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : PO_OCLK_DELAY           = 1 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : L_PHY_0_PO_FINE_DELAY   = 60 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : PI_STG1_INTRINSIC_DELAY = 0.00 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : PI_STG2_INTRINSIC_DELAY = 1271.25 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : PI_INTRINSIC_DELAY      = 1271.25 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : PI_MAX_STG2_DELAY       = 1230.47 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : PI_OFFSET               = 790.00 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : PI_STG2_DELAY           = 790.00 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy :PI_STG2_DELAY_CAND       = 790.00 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : DEFAULT_RCLK_DELAY      = 40 
+tb_top.U_TOP.i_ddr_axi.u_ddr_axi_mig.u_memc_ui_top_axi.mem_intfc0.ddr_phy_top0.u_ddr_mc_phy_wrapper.u_ddr_mc_phy : RCLK_SELECT_EDGE        = 111 
+WARNING: Behavioral models for independent clock FIFO configurations do not model synchronization delays. The behavioral models are functionally correct, and will represent the behavior of the configured FIFO. See the FIFO Generator User Guide for more information.
+WARNING: Behavioral models for independent clock FIFO configurations do not model synchronization delays. The behavioral models are functionally correct, and will represent the behavior of the configured FIFO. See the FIFO Generator User Guide for more information.
+Block Memory Generator module tb_top.U_TOP.i_etherlite.U0.XEMAC_I.TX_PING.dpram_blkmem.family_supported.I_TRUE_DUAL_PORT_BLK_MEM_GEN.native_mem_module.blk_mem_gen_v8_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+Block Memory Generator module tb_top.U_TOP.i_etherlite.U0.XEMAC_I.RX_PING.dpram_blkmem.family_supported.I_TRUE_DUAL_PORT_BLK_MEM_GEN.native_mem_module.blk_mem_gen_v8_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+Command failed: Simulator command interrupted.
+
+Simulation engine not responding
+The simulator has terminated in an unexpected manner.  Please review the simulation log (xsim.log) for details.
