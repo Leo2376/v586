@@ -208,7 +208,12 @@ else if (read_ack_ff == 1'b1)
     begin
      read_ack_ff <= 1'b1;
      read_req_ff <= 1'b0;
-     read_data_out_ff <= read_data_in; 
+     case (addr_in[3:2])
+      2'b00: read_data_out_ff <= read_data_in[31:  0];
+      2'b01: read_data_out_ff <= read_data_in[63: 32];
+      2'b10: read_data_out_ff <= read_data_in[95: 64];
+      2'b11: read_data_out_ff <= read_data_in[127:96];
+     endcase
     end
  else 
  if ((write_req_ff == 1'b0) && (write_req_in == 1'b1) && (even == 1'b0)) 

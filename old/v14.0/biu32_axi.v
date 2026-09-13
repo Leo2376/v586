@@ -245,7 +245,7 @@ casex ({fsm,(write_req&~wrint_ack),(read_req&~read_ack_slow),(code_req&~code_ack
 		    A4            <= Daddr[3:2];
 		    fsm 	      <= 5'b01011; 
 		    axi_RREADY    <= 0;
-		    axi_ARLEN     <= 8'h3;
+		    axi_ARLEN     <= 8'h0;
 		    burst_idx     <= 0;
                 end
 

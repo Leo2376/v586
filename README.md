@@ -291,29 +291,93 @@ So the core, the I-TLB pass-through, the `lgdt`/segment loads, `rep stosd`,
 `loop`, and the `mov cr0` / paging-enable path all work, and paging successfully
 relocates execution to `0xc010xxxx`.
 
+### Data-cache read fixes (this session)
+
+Two data-cache read bugs were found and fixed. Before these, every data read
+returned the *wrong* dword of the 128-bit cache line, which scrambled the kernel
+boot data and prevented page tables from being read correctly.
+
+1. **`biu32_axi.v` — cache-line fill burst length.** The data-cache line fill
+   issued a 4-beat burst (`ARLEN=3`) but only stored the *last* beat (`axi_R` at
+   `RLAST`). A 16-byte cache line is exactly one 128-bit beat, so the burst was
+   changed to `ARLEN=0` (single beat fills the whole line). Previously
+   `mov ecx,[0x225000]` returned `0xe00000ff` (the data at offset `0x30`, the
+   last beat) instead of `0xc021e000` (the data at offset `0x0`).
+
+2. **`realign.v` — non-split read word selection.** The non-split read
+   completion did `read_data_out_ff <= read_data_in`, truncating the 128-bit
+   line to its low 32 bits with no word selection. Added a
+   `case (addr_in[3:2])` to select the addressed 32-bit dword out of the
+   128-bit line.
+
+After both fixes, `mov ecx,[0x225000]` correctly returns `0xc021e000`, and the
+high-virtual read `mov eax,[0xc0234c80]` correctly translates to physical
+`0x00234c80` (previously it mis-translated to `0x00256c00`).
+
 ### Where it currently hangs
 
-The boot then stalls at `0xc0100171` (`mov eax,[0xc0234c80]`) — the first data
-read from a high kernel virtual address after paging is on. Probing the DTLB
-shows:
+With the data-cache fixes applied, the kernel runs through `startup_32` with
+**8,265 EIP transitions**, enables paging (`mov cr0,0x80050033`), far-jumps to
+`0xc010016b`, and reaches the high kernel. The boot then stalls at
+`0xc010017a` / `0xc010017c` on a DTLB page-walk fault. The verbose trace shows:
 
-- the virtual address `0xc0234c80` is translated to physical `0x00256c00`
-  (it should be `0x00234c80` — `0xc0000000` → `0x00000000`), and
-- `pg_fault` asserts and stays high forever.
+```
+#8261  EIP c0100171 -> c0100176  daddr=00234c80 pgf=0   ; high-VA read OK
+#8264  EIP c010017a -> c010017c  daddr=00234c80 pgf=0
+#8265  EIP c010017c -> c010017a  daddr=00275870 pgf=1   ; page-walk fault
+Final EIP=c010017a (last moved at cyc=438243, stuck for 161757 cycles)
+```
 
-This is a **DTLB translation bug**: the data TLB mis-translates a high-virtual
-kernel address and then wedges in a page-fault loop (the kernel has not yet
-installed its IDT/page-fault handler, so the fault cannot be delivered).
-This is the concrete manifestation of the “few bugs that make it hang” the
-project had on hardware, now isolated to the `Dtlb.v`/`tlb.v` page-walk /
-translation path for `0xc0000000+` mappings.
+The high-virtual data read at `0xc0100171` now translates correctly
+(`0xc0234c80 → 0x00234c80`), confirming the cache fixes. The *next* access at
+`0xc010017c` triggers a DTLB page walk that reaches physical `0x275870`
+(`0x275000 + 0x870` = entry `0x21c` of the first page table) and faults. This is
+a **DTLB page-walk / tag-assembly bug** for `0xc0000000+` mappings (directory
+entry `0x300`): the walk reads the page directory entry at `[cr3 + 0xC00]` and
+the page table entry at the resulting physical address, but assembles the
+translation incorrectly and raises `pg_fault`, which then stays asserted
+forever. The kernel has not yet installed its IDT/page-fault handler, so the
+fault cannot be delivered and the faulting instruction retries in a loop.
+This is the concrete remaining manifestation of the “few bugs that make it
+hang,” now isolated to the `Dtlb.v`/`tlb.v` page-walk FSM for high-virtual
+addresses.
 
 Reproducing:
 ```bash
-make sim MAX_CYC=600000      # ~600k cycles reaches the hang
-# summary line: "... DID reached high kernel ... Final EIP=c0100171 ... stuck"
-make sim MAX_CYC=5000000 --verbose   # longer run confirms it never recovers
+make -C sim/v140 sim MAX_CYC=600000   # ~600k cycles reaches the hang
+# summary line: "... 8265 EIP transitions, DID reached high kernel ... Final EIP=c010017a ..."
+./sim/v140/build/VTOP_SYS_sim --cycles 600000 --verbose   # shows the c010xxxx trace + pgf=1
 ```
+
+### v10.8.2 boot image / memory-map reference
+
+The `old/v10.8.2/` snapshot was kept only to recover the RAM/ROM images. Its
+`boot.mem` is a 1024-byte `$readmemh` bootloader for the *v10.8.2* core, which
+resets at `0xFFC00` in **real mode** (CR0.PE off). It is **not directly reusable**
+on the v14.0 core, which resets at `0x40d00000` in **protected mode** (CR0<=1,
+PG off, `had_lgjmp<=0`, flat segments). The v14.0 simulation instead loads the
+kernel via `sim/boot.S` + `sim/mk_boot_image.py` (see `sim/v140/Makefile`).
+
+The decoded v10.8.2 memory map is kept here as a reference:
+
+- Reset vector: `0xFFC00` (real mode), 1 MB BIOS window mirrored at `0x40d00000`.
+- `boot.mem`: real-mode bootloader; sets up segments, A20, moves the kernel,
+  and enters protected mode.
+- `bin2v.bin` (`old/v10.8.2/`): 2,820,473-byte pre-linked Linux `startup_32`
+  image (same `8b 0d …` startup pattern as `old/v14.0/vmlinux.bin`).
+
+The current v14.0 sim memory layout is:
+
+| Range | Contents |
+|---|---|
+| `0x000000`–`0xffffff` | 16 MB simulated DDR (`sim/axi_mem128.v`) |
+| `0x090000` | `boot_params` (loadflags=`0xC1`, `cmd_line_ptr=0xa0000`) |
+| `0x0a0000` | kernel command line |
+| `0x100000` | Linux `startup_32` (`vmlinux.bin`) |
+| `0x225000+` | kernel boot data (GDT at `0x225040`, ESP calc) |
+| `0x256000` | page directory (CR3) |
+| `0x275000+` | page tables |
+| `0x40d00000` | reset vector (1 MB window → low memory) |
 
 The remaining work to actually reach `start_kernel` is in the DTLB: fix the
 wrong physical translation for `0xc0000000+` pages (likely a tag/offset
