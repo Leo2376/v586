@@ -22,7 +22,7 @@ always @(a) q <= Mem[a];
 always @(a) q <= Ctrl[a];
 
 
-inital
+initial
 begin
 
 // exceptions 
@@ -85,7 +85,7 @@ Mem[299] <= {1'b0,modrm[5:3],1'b0,modrm[5:3],8'h27,8'h40,72'h0,8'h0,8'hb7,8'h03,
 Mem[300] <= {1'b0,modrm[2:0],1'b0,modrm[5:3],8'h27,{1'b0,opz},4'h0,72'h0,8'hff,8'h5b,8'h5a,8'h1}; //Bit Test Reset 
 Mem[301] <= {1'b0,modrm[2:0],1'b0,modrm[5:3],8'h27,{1'b0,opz},4'h0,24'h0,8'hff,8'h2,8'h2c,8'h5b,8'h5a,8'h47,8'h3,8'h5d,8'h2d,8'h1};
 Mem[302] <= {1'b0,modrm[5:3],2'b0,modrm[1:0],8'h27,{1'b0,opz},4'h0,64'h0,8'h00,8'h00,8'hbc,8'h4d,8'h1};
-Mem[303] <= {1'b0,modrm[5:3],2'b0,modrm[1:0],8'h27,{1'b0,opz},4'h0,56'h0,8'h00,8'h00,8'hbc,8'h4d,8'h26,8'h1}; end
+Mem[303] <= {1'b0,modrm[5:3],2'b0,modrm[1:0],8'h27,{1'b0,opz},4'h0,56'h0,8'h00,8'h00,8'hbc,8'h4d,8'h26,8'h1};
 Mem[304] <= {1'b0,modrm[5:3],1'b0,modrm[2:0],8'h27,{1'b0,opz},4'h0,56'h0,8'h00,8'h00,8'hbc,8'h4d,8'h1e,8'h1};
 Mem[305] <= {1'b0,modrm[5:3],1'b0,modrm[2:0],8'h27,{1'b0,opz},4'h0,64'h0,8'h00,8'h00,8'hbc,8'h4e,8'h1}; // movzx word
 Mem[306] <= {1'b0,modrm[5:3],1'b0,modrm[2:0],8'h27,{1'b0,opz},4'h0,56'h0,8'h00,8'h00,8'hbc,8'h4e,8'h3,8'h1};
@@ -153,7 +153,7 @@ Mem[39] <= {4'he,4'h8,8'ha8,{1'b0,opz},4'h8,80'h0,8'hb8,8'h1,4'b1101,op[3:0]}; /
 Mem[40] <= {2'b0,modrm[1:0],4'h6,8'ha6,8'h18,64'h0,8'h00,8'h0,8'hb9,5'b0001_0,modrm[5:3],8'h1};
 Mem[41] <= {2'b0,modrm[1:0],4'b0,8'ha6,8'h30,40'h0,8'h00,8'h0,8'hb9,8'h2e,5'b0001_0,modrm[5:3],8'h2b,8'h2e,8'h1};	  	  
 Mem[42] <= {8'h06,8'ha7,8'h18,32'h0,8'hff,8'h2,8'h2c,8'ha,5'b0001_0,modrm[5:3],8'h47,8'h3,8'h2d,8'h1};
-Mem[43] <= {1'b0,modrm[2:0],4'h6,8'ha6,{1'b0,opz,4'h8},64'h0,8'h00,8'h0,8'hb9,5'b0001_0,modrm[5:3],8'h1}; else
+Mem[43] <= {1'b0,modrm[2:0],4'h6,8'ha6,{1'b0,opz,4'h8},64'h0,8'h00,8'h0,8'hb9,5'b0001_0,modrm[5:3],8'h1};
 Mem[44] <= {8'h06,8'ha7,{1'b0,opz},4'h8,32'h0,8'hff,8'h2,8'h2c,8'ha,5'b0001_0,modrm[5:3],8'h47,8'h3,8'h2d,8'h1};
 Mem[45] <= {1'b0,modrm[2:0],4'h8,8'ha6,{1'b0,opz,4'h8},64'h0,8'h00,8'h0,8'hb9,5'b0001_0,modrm[5:3],8'h1};
 Mem[46] <= {8'h06,8'ha7,{1'b0,opz},4'h8,24'h0,8'hff,8'h2,8'h2c,8'ha,5'b0001_0,modrm[5:3],8'h2f,8'h47,8'h3,8'h2d,8'h1};
@@ -172,7 +172,7 @@ Mem[59] <= {4'h0,src8,4'h7,8'h20,72'h0,8'hff,8'he6,8'h41,8'h1};
 Mem[60] <= {src8,8'h07,8'h20,72'h0,8'h00,8'hb6,8'h2e,8'h1};
 Mem[61] <= {4'h0,src8,4'h7,8'h30,72'h0,8'hff,8'he6,8'h2d,8'h1};
 Mem[62] <= {8'h0,{2'b0,modrm[4:3]},4'h7,8'h10,64'h0,8'hff,8'he4,8'h2d,8'h1e,8'h1};	   
-Mem[63] <= {2'b0,modrm[4:3]},4'h7,8'h30,56'h0,8'hff,8'he4,8'h2,8'h41,8'h1e,8'h1};
+Mem[63] <= {2'b0,modrm[4:3],4'h7,8'h30,56'h0,8'hff,8'he4,8'h2,8'h41,8'h1e,8'h1};
 Mem[64] <= {4'h0,{1'b0,modrm[2:0]},{1'b0,modrm[5:3]},4'h7,{1'b0,opz,4'b0},72'h0,8'hff,8'he6,8'h2d,8'h1}; // xchg word
 Mem[65] <= {4'h0,{1'b0,modrm[2:0]},{1'b0,modrm[5:3]},4'h7,{1'b0,opz,4'b0},56'h0,8'hff,8'he4,8'h2,8'h2d,8'h3,8'h1}; // xchg word
 Mem[66] <= {src,8'ha6,{1'b0,opz},4'h0,80'h0,8'h00,8'hbc,8'h1}; 
@@ -432,7 +432,7 @@ Ctrl[299] <= {1'b0,modrm[5:3],1'b0,modrm[5:3],8'h27,8'h40,72'h0,8'h0,8'hb7,8'h03
 Ctrl[300] <= {1'b0,modrm[2:0],1'b0,modrm[5:3],8'h27,{1'b0,opz},4'h0,72'h0,8'hff,8'h5b,8'h5a,8'h1}; //Bit Test Reset 
 Ctrl[301] <= {1'b0,modrm[2:0],1'b0,modrm[5:3],8'h27,{1'b0,opz},4'h0,24'h0,8'hff,8'h2,8'h2c,8'h5b,8'h5a,8'h47,8'h3,8'h5d,8'h2d,8'h1};
 Ctrl[302] <= {1'b0,modrm[5:3],2'b0,modrm[1:0],8'h27,{1'b0,opz},4'h0,64'h0,8'h00,8'h00,8'hbc,8'h4d,8'h1};
-Ctrl[303] <= {1'b0,modrm[5:3],2'b0,modrm[1:0],8'h27,{1'b0,opz},4'h0,56'h0,8'h00,8'h00,8'hbc,8'h4d,8'h26,8'h1}; end
+Ctrl[303] <= {1'b0,modrm[5:3],2'b0,modrm[1:0],8'h27,{1'b0,opz},4'h0,56'h0,8'h00,8'h00,8'hbc,8'h4d,8'h26,8'h1};
 Ctrl[304] <= {1'b0,modrm[5:3],1'b0,modrm[2:0],8'h27,{1'b0,opz},4'h0,56'h0,8'h00,8'h00,8'hbc,8'h4d,8'h1e,8'h1};
 Ctrl[305] <= {1'b0,modrm[5:3],1'b0,modrm[2:0],8'h27,{1'b0,opz},4'h0,64'h0,8'h00,8'h00,8'hbc,8'h4e,8'h1}; // movzx word
 Ctrl[306] <= {1'b0,modrm[5:3],1'b0,modrm[2:0],8'h27,{1'b0,opz},4'h0,56'h0,8'h00,8'h00,8'hbc,8'h4e,8'h3,8'h1};
@@ -500,7 +500,7 @@ Ctrl[39] <= {4'he,4'h8,8'ha8,{1'b0,opz},4'h8,80'h0,8'hb8,8'h1,4'b1101,op[3:0]}; 
 Ctrl[40] <= {2'b0,modrm[1:0],4'h6,8'ha6,8'h18,64'h0,8'h00,8'h0,8'hb9,5'b0001_0,modrm[5:3],8'h1};
 Ctrl[41] <= {2'b0,modrm[1:0],4'b0,8'ha6,8'h30,40'h0,8'h00,8'h0,8'hb9,8'h2e,5'b0001_0,modrm[5:3],8'h2b,8'h2e,8'h1};	  	  
 Ctrl[42] <= {8'h06,8'ha7,8'h18,32'h0,8'hff,8'h2,8'h2c,8'ha,5'b0001_0,modrm[5:3],8'h47,8'h3,8'h2d,8'h1};
-Ctrl[43] <= {1'b0,modrm[2:0],4'h6,8'ha6,{1'b0,opz,4'h8},64'h0,8'h00,8'h0,8'hb9,5'b0001_0,modrm[5:3],8'h1}; else
+Ctrl[43] <= {1'b0,modrm[2:0],4'h6,8'ha6,{1'b0,opz,4'h8},64'h0,8'h00,8'h0,8'hb9,5'b0001_0,modrm[5:3],8'h1};
 Ctrl[44] <= {8'h06,8'ha7,{1'b0,opz},4'h8,32'h0,8'hff,8'h2,8'h2c,8'ha,5'b0001_0,modrm[5:3],8'h47,8'h3,8'h2d,8'h1};
 Ctrl[45] <= {1'b0,modrm[2:0],4'h8,8'ha6,{1'b0,opz,4'h8},64'h0,8'h00,8'h0,8'hb9,5'b0001_0,modrm[5:3],8'h1};
 Ctrl[46] <= {8'h06,8'ha7,{1'b0,opz},4'h8,24'h0,8'hff,8'h2,8'h2c,8'ha,5'b0001_0,modrm[5:3],8'h2f,8'h47,8'h3,8'h2d,8'h1};
@@ -519,7 +519,7 @@ Ctrl[59] <= {4'h0,src8,4'h7,8'h20,72'h0,8'hff,8'he6,8'h41,8'h1};
 Ctrl[60] <= {src8,8'h07,8'h20,72'h0,8'h00,8'hb6,8'h2e,8'h1};
 Ctrl[61] <= {4'h0,src8,4'h7,8'h30,72'h0,8'hff,8'he6,8'h2d,8'h1};
 Ctrl[62] <= {8'h0,{2'b0,modrm[4:3]},4'h7,8'h10,64'h0,8'hff,8'he4,8'h2d,8'h1e,8'h1};	   
-Ctrl[63] <= {2'b0,modrm[4:3]},4'h7,8'h30,56'h0,8'hff,8'he4,8'h2,8'h41,8'h1e,8'h1};
+Ctrl[63] <= {2'b0,modrm[4:3],4'h7,8'h30,56'h0,8'hff,8'he4,8'h2,8'h41,8'h1e,8'h1};
 Ctrl[64] <= {4'h0,{1'b0,modrm[2:0]},{1'b0,modrm[5:3]},4'h7,{1'b0,opz,4'b0},72'h0,8'hff,8'he6,8'h2d,8'h1}; // xchg word
 Ctrl[65] <= {4'h0,{1'b0,modrm[2:0]},{1'b0,modrm[5:3]},4'h7,{1'b0,opz,4'b0},56'h0,8'hff,8'he4,8'h2,8'h2d,8'h3,8'h1}; // xchg word
 Ctrl[66] <= {src,8'ha6,{1'b0,opz},4'h0,80'h0,8'h00,8'hbc,8'h1}; 
