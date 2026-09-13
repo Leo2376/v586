@@ -24,10 +24,15 @@
 //==========================================================================
 `timescale 1ns / 1ps
 
-// Default boot image preloaded at the reset vector (0x40d00000).
-// Override at Verilator compile time with  -DBOOT_HEX=\"path/to/hex\" .
-`ifndef BOOT_HEX
- `define BOOT_HEX "boot.hex"
+// Boot images preloaded into the sim RAM.
+//   LOW_HEX  - low memory (kernel + boot_params + cmdline),  base 0x00000000
+//   HIGH_HEX - boot code at the reset vector,                base 0x40d00000
+// Override at Verilator compile time: -DLOW_HEX=\"...\" -DHIGH_HEX=\"...\"
+`ifndef LOW_HEX
+ `define LOW_HEX "kernel.hex"
+`endif
+`ifndef HIGH_HEX
+ `define HIGH_HEX "boot.hex"
 `endif
 
 module TOP_SYS_sim (
@@ -37,7 +42,24 @@ module TOP_SYS_sim (
     output wire TXD,        // UART TX line
     output wire [3:0] r4, g4, b4,
     output wire hz, vt,
-    output wire [4:0] debug // v586 debug bus
+    output wire [4:0] debug, // v586 debug bus
+    // debug probes (hierarchical taps into the core)
+    output wire [31:0] dbg_fetch_addr, // useq fetch address
+    output wire [31:0] dbg_eip,         // regs[14] = EIP
+    output wire        dbg_pc_req,      // pc_req pulse
+    output wire [31:0] dbg_lenpc,       // decoded instruction length
+    output wire [15:0] dbg_inst,        // first 2 fetched bytes (queue[15:0])
+    output wire [3:0]  dbg_cr0pe,       // cr0.PE bit (cr0[0])
+    output wire        dbg_code_req,    // useq->Itlb code_req
+    output wire        dbg_code_ack,    // code_ack back to useq
+    output wire [15:0] dbg_code_data,   // raw fetch data low 16
+    output wire        dbg_useq_hit,    // useq cache hit
+    output wire [3:0]  dbg_useq_tagV,   // useq cache tag valid
+    output wire [31:0] dbg_ecx,         // regs[1] = ECX
+    output wire [4:0]  dbg_vliw_pc,     // vliw micro-pc
+    output wire        dbg_pg_fault,    // data page fault
+    output wire        dbg_pc_pg_fault, // code page fault
+    output wire [31:0] dbg_Daddr        // data read/write address
 );
 
     //------------------------------------------------------------------
@@ -155,8 +177,9 @@ module TOP_SYS_sim (
     //------------------------------------------------------------------
     // 128-bit functional RAM (code/data)
     //------------------------------------------------------------------
-    axi_mem128 #(.AW(24), .DW(128), .BASE(32'h40d0_0000),
-                 .MEM_FILE(`BOOT_HEX)) ram (
+    axi_mem128 #(.DW(128),
+                 .BASE0(32'h0000_0000), .AW0(24), .LOW_FILE(`LOW_HEX),
+                 .BASE1(32'h40d0_0000), .AW1(20), .HIGH_FILE(`HIGH_HEX)) ram (
         .clk(clk_core), .rstn(rstn_ddr),
         .s_axi_awaddr(m00_AW),   .s_axi_awlen(m00_AWLEN),
         .s_axi_awsize(m00_AWSIZE),.s_axi_awburst(m00_AWBURST),
@@ -219,5 +242,26 @@ module TOP_SYS_sim (
     assign b4 = 4'b0;
     assign hz = 1'b0;
     assign vt = 1'b0;
+
+    // Debug taps via hierarchical references into the v586 core.
+    //   useq.addr      - instruction fetch address the BIU is presenting
+    //   cpu.regs[14]   - EIP (regs[14] in vliw)
+    //   core.pc_req    - pulse the execution unit issues to redirect fetch
+    assign dbg_fetch_addr = cpu.ucore.i_useq.addr;
+    assign dbg_eip        = cpu.ucore.i_cpu.i_vliw.regs[14];
+    assign dbg_pc_req     = cpu.ucore.pc_req;
+    assign dbg_lenpc      = cpu.ucore.lenpc;
+    assign dbg_inst       = cpu.ucore.queue[15:0];
+    assign dbg_cr0pe      = cpu.ucore.cr0[0];
+    assign dbg_code_req  = cpu.ucore.int_code_req;
+    assign dbg_code_ack  = cpu.ucore.int_code_ack;
+    assign dbg_code_data = cpu.ucore.code_data[15:0];
+    assign dbg_useq_hit  = cpu.ucore.i_useq.hit;
+    assign dbg_useq_tagV = cpu.ucore.i_useq.tagV;
+    assign dbg_ecx       = cpu.ucore.i_cpu.i_vliw.regs[1];
+    assign dbg_vliw_pc   = cpu.ucore.i_cpu.i_vliw.vliw_pc;
+    assign dbg_pg_fault  = cpu.ucore.pg_fault;
+    assign dbg_pc_pg_fault = cpu.ucore.pc_pg_fault;
+    assign dbg_Daddr     = cpu.ucore.Daddr;
 
 endmodule

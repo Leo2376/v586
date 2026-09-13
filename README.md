@@ -230,6 +230,11 @@ RTL compiles cleanly under Verilator 5:
   replaced with a proper empty module with `clk`/`rstn` ports. Never instantiated.
 - [`biu32_axi.v`](old/v14.0/biu32_axi.v) — stray `:` → `;`, and port/reg name mismatches
   (`I_axi_io_`/`D_axD_`/`I_axi_` vs header names) that only worked under old lenient tools.
+  **Functional fix:** the instruction-fetch path never captured the AXI read data —
+  `code_data` was declared `output reg` but never assigned, so every fetch returned zeros.
+  The code-fetch FSM now latches `axi_R` into `code_data` on the beat and uses a single
+  128-bit (16-byte) burst (`ARLEN=0`, `ARSIZE=4`) matching the 16-byte `useq` line fill.
+  Without this the core could never execute any real code.
 - [`realign.v`](old/v14.0/realign.v) — added missing `reg [15:0] write_msk_ff;` declaration;
   fixed a missing semicolon after a concatenation.
 - [`mem_deco.v`](old/v14.0/mem_deco.v) — `inital`→`initial`, removed stray `end`/`; else`
@@ -247,6 +252,74 @@ RTL compiles cleanly under Verilator 5:
   and UART TXD.
 - The `v586` port split is `m00`=128-bit instruction+data, `m01`=32-bit I/O, `m02`=32-bit
   (unused internally). The sim top honours this.
+
+## Linux boot investigation
+
+The repo ships an old `old/v14.0/vmlinux.bin` (a Linux 3.14-era i386 `startup_32`
+kernel image, ~1.4 MB) that the original FPGA build used to boot. A minimal
+bootloader (`sim/boot.S`, assembled by `sim/mk_boot_image.py`) was written to satisfy
+the kernel head's only entry contract — `esi = &boot_params` — and jump to the
+kernel at physical `0x100000`:
+
+```asm
+    movl    $0x90000, %esi      ; esi = boot_params physical address
+    jmp     0x100000            ; jmp rel32 (E9); the v586 core does not
+                                ; implement `jmp r/m32` (FF /4)
+```
+
+`mk_boot_image.py` synthesises a `boot_params` block (zero-filled, with a
+`hdr->cmd_line_ptr` and a `cmdline` of `console=ttyS0`) and produces two
+`$readmemh` images: `build/boot.hex` (at the `0x40d00000` reset vector) and
+`build/kernel.hex` (low memory, kernel + boot_params + cmdline).
+
+### Result of the attempt
+
+With the `code_data` fetch fix above, the simulation **boots the kernel through
+early `startup_32` and into the paged high-kernel virtual address**:
+
+1. Reset at `0x40d00000` → executes `mov esi,0x90000` → `jmp 0x100000` (the
+   `jmp rel32` is correctly decoded and the PC redirects to the kernel).
+2. Linux `startup_32` runs: loads the GDT (`lgdt`), loads segment registers with
+   selector `0x18`, clears the BSS (`rep stosd` over `0x256000..0x275000`, ~349k
+   cycles), and builds identity + kernel page directories with a `loop`-based
+   page-table fill loop (`stos` / `add eax,0x1000` / `loop`) — the `loop`
+   instruction's ECX decrement works and the loop terminates.
+3. Enables paging (`mov %eax,%cr0` with `0x50033` at `0x1000e1`) and jumps to
+   the kernel's linked virtual address `0xc010016b` (`0xc0000000` + text).
+
+So the core, the I-TLB pass-through, the `lgdt`/segment loads, `rep stosd`,
+`loop`, and the `mov cr0` / paging-enable path all work, and paging successfully
+relocates execution to `0xc010xxxx`.
+
+### Where it currently hangs
+
+The boot then stalls at `0xc0100171` (`mov eax,[0xc0234c80]`) — the first data
+read from a high kernel virtual address after paging is on. Probing the DTLB
+shows:
+
+- the virtual address `0xc0234c80` is translated to physical `0x00256c00`
+  (it should be `0x00234c80` — `0xc0000000` → `0x00000000`), and
+- `pg_fault` asserts and stays high forever.
+
+This is a **DTLB translation bug**: the data TLB mis-translates a high-virtual
+kernel address and then wedges in a page-fault loop (the kernel has not yet
+installed its IDT/page-fault handler, so the fault cannot be delivered).
+This is the concrete manifestation of the “few bugs that make it hang” the
+project had on hardware, now isolated to the `Dtlb.v`/`tlb.v` page-walk /
+translation path for `0xc0000000+` mappings.
+
+Reproducing:
+```bash
+make sim MAX_CYC=600000      # ~600k cycles reaches the hang
+# summary line: "... DID reached high kernel ... Final EIP=c0100171 ... stuck"
+make sim MAX_CYC=5000000 --verbose   # longer run confirms it never recovers
+```
+
+The remaining work to actually reach `start_kernel` is in the DTLB: fix the
+wrong physical translation for `0xc0000000+` pages (likely a tag/offset
+assembly bug in the page-walk FSM in [`Dtlb.v`](old/v14.0/Dtlb.v) /
+[`tlb.v`](old/v14.0/tlb.v)) and ensure the page-fault delivery path can
+vector through the (BIOS/default) IDT.
 
 ## Known issues / gaps
 

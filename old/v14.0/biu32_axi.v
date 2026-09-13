@@ -320,12 +320,13 @@ casex ({fsm,(write_req&~wrint_ack),(read_req&~read_ack_slow),(code_req&~code_ack
 		 read_ack_slow <= 0; 
 		 code_ack_slow <= 0; 
 		 code_wack     <= 0;
-         axi_AR        <= {code_addr[31:2],2'b0}; 
+         axi_AR        <= {code_addr[31:4],4'b0}; 
          axi_ARVALID   <= 1; 
          axi_RREADY    <= 1; 
          burst_idx     <= 0;
 		 abort         <= 0;
-		 axi_ARLEN <= 8'h3;    
+		 axi_ARLEN <= 8'h0;    // single 128-bit beat = 16-byte line
+		 axi_ARSIZE <= 3'h4;   // 2^4 = 16 bytes per beat
 		 fsm       <= 5'b10001;
 		end
 	
@@ -334,6 +335,7 @@ casex ({fsm,(write_req&~wrint_ack),(read_req&~read_ack_slow),(code_req&~code_ack
                  if (axi_ARREADY == 1) axi_ARVALID <= 0;
                  if((axi_RVALID == 1) && (axi_RLAST == 1'b1))
 	          begin 
+		    code_data    <= axi_R; // capture fetched 128-bit line
 		    fsm        <= 5'b11111; 
 		    axi_RREADY <= 0;
 		    code_ack_slow <= 1;

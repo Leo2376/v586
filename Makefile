@@ -65,9 +65,12 @@ SIM_V := \
 
 ALL_V := $(CORE_V) $(PERIPH_V) $(SIM_V)
 
-# Boot image preloaded at the reset vector (0x40d00000). Override with
-#   make sim BOOT_HEX=path/to/hex
-BOOT_HEX ?= $(abspath $(SDIR)/boot.hex)
+# Boot images for the two-region sim RAM.
+#   LOW_HEX  - low memory (kernel + boot_params),  base 0x00000000
+#   HIGH_HEX - boot code at the reset vector,      base 0x40d00000
+LOW_HEX  ?= $(abspath $(BUILD)/kernel.hex)
+HIGH_HEX ?= $(abspath $(BUILD)/boot.hex)
+VMLINUX  ?= $(abspath $(VDIR)/vmlinux.bin)
 
 # --- Verilator flags -----------------------------------------------------
 # Broad lint suppression: the original RTL uses casex/implicit widths/etc.
@@ -77,14 +80,24 @@ VL_FLAGS := --Wall -Wno-WIDTH -Wno-UNUSED -Wno-UNOPTFLAT -Wno-CASEX \
             -Wno-DECLFILENAME -Wno-UNOPT -Wno-LATCH -Wno-WIDTHCONCAT \
             -Wno-CASEOVERLAP -Wno-REALCVT -Wno-INITIALDLY -Wno-TIMESCALEMOD \
             -Wno-fatal --trace --top-module $(TOP) \
-            -DBOOT_HEX=\"$(BOOT_HEX)\"
+            -DLOW_HEX=\"$(LOW_HEX)\" -DHIGH_HEX=\"$(HIGH_HEX)\"
 
 TB_CPP := $(SDIR)/tb_top_sim.cpp
 EXE    := $(BUILD)/V$(TOP)
 
 MAX_CYC ?= 200000
 
-.PHONY: sim build run trace iverilog lint clean
+# Image-generation script: builds kernel.hex (low) and boot.hex (high)
+# from vmlinux.bin + the bootloader + a synthesized boot_params block.
+IMG_PY  := $(SDIR)/mk_boot_image.py
+
+.PHONY: sim build run trace iverilog lint clean images
+
+images: $(LOW_HEX) $(HIGH_HEX)
+
+$(LOW_HEX) $(HIGH_HEX): $(IMG_PY) $(VMLINUX)
+	@mkdir -p $(BUILD)
+	python3 $(IMG_PY) --vmlinux $(VMLINUX) --outdir $(BUILD)
 
 sim: build
 	@mkdir -p waves
@@ -96,7 +109,7 @@ trace: build
 
 build: $(EXE)
 
-$(EXE): $(ALL_V) $(TB_CPP)
+$(EXE): $(ALL_V) $(TB_CPP) $(LOW_HEX) $(HIGH_HEX)
 	@mkdir -p $(BUILD)
 	$(VERILATOR) --cc --exe $(VL_FLAGS) \
 	    -CFLAGS "-std=c++17 -O2" \
